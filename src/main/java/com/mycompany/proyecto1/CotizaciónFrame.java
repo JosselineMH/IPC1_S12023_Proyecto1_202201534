@@ -4,18 +4,118 @@
  */
 package com.mycompany.proyecto1;
 
+import static com.mycompany.proyecto1.AppState.listaregiones;
+import java.awt.event.ItemEvent;
+import java.io.*;
+
+import java.text.DecimalFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Random;
+import javax.swing.*;
+
 /**
  *
  * @author josse
  */
 public class CotizaciónFrame extends javax.swing.JFrame {
-
+     public double precioest=0, precioesp=0;
+     public double totalestandar, totalespecial;
+     public double totalneto,totalpago;
+     public String destinatario, NIT, tipopago,fechaenvio;
+     public long contadorcliente;
+     public String  correocliente,codigopaq,numfactura,tiposervicio1,tiposervicio2,origen,destino,tipopago1,tipopago2, direccion1, direccion2;
+     public long tamanopaq,numpaquetes;
+     
     /**
      * Creates new form CotizaciónFrame
      */
     public CotizaciónFrame() {
         initComponents();
+        setLocationRelativeTo(null);
+        setResizable(false);
+        setTitle("COTIZACIÓN DE PAQUETES Y COMPRA");
+        
+        tpequeno.setEnabled(false);
+        tmediano.setEnabled(false);
+        tgrande.setEnabled(false);
+        FacturaBtn.setEnabled(false);
+        guiaBtn.setEnabled(false);
+        cotizacionBtn.setEnabled(false);
+        
+        recibecorreo3Txt.setVisible(false);
+        codigoguiaTxt.setVisible(false);
+        numfacturaTxt.setVisible(false);
+        
+        grupotamaño.add(pequeRBtn);
+        grupotamaño.add(medianoRBtn);
+        grupotamaño.add(grandeRBtn);
+        
+        pagoBotones.add(pagoentrega);
+        pagoBotones.add(pagotarjeta);
+        
+        servicioBotones.add(estandarRB);
+        servicioBotones.add(especialRB);
+        
+        tarjetasCombo.setVisible(false);
+        cvvTxt.setVisible(false);
+        cvvLbl.setVisible(false);
+        
+        for(int i = 0; i < listaregiones.size(); i++) {
+        regionCombo1.addItem(listaregiones.get(i).getCodigoR().toString()); 
+        regionCombo2.addItem(listaregiones.get(i).getCodigoR().toString());
+        }
+        
+        
+        codigoguiaTxt.setText(codigoguia());
+        numfacturaTxt.setText(numfactura());
+        
+       
     }
+    public static String codigoguia(){
+        final String cadena="QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm";
+        final int tamaño=2;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0;i<tamaño; i++) {
+            double alt=Math.random()*cadena.length();
+            int posicion=(int)alt;
+            char letra =cadena.charAt(posicion);
+            sb.append(letra);
+        }
+        //NUMEROS ALEATORIOS
+        int aleatorio1=0, aleatorio2=0; 
+        Random codigo = new Random();
+        aleatorio1=(int)(codigo.nextDouble()*10);
+        aleatorio2=(int)(codigo.nextDouble()*10);
+        //CODIGO
+        String CODIGO="IPC1A_"+aleatorio1+sb.toString()+aleatorio2;
+        //RETORNO
+        return CODIGO;
+        
+    }
+    public static String numfactura(){
+        final String cadena="QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm";
+        final int tamaño=3;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0;i<tamaño; i++) {
+            double alt=Math.random()*cadena.length();
+            int posicion=(int)alt;
+            char letra =cadena.charAt(posicion);
+            sb.append(letra);
+        }
+        //NUMEROS ALEATORIOS
+        int aleatorio1=0, aleatorio2=0; 
+        Random codigo = new Random();
+        aleatorio1=(int)(codigo.nextDouble()*100);
+        aleatorio2=(int)(codigo.nextDouble()*10);
+        //CODIGO
+        String CODIGO="000"+aleatorio1+sb.toString()+aleatorio2;
+        //RETORNO
+        return CODIGO;
+        
+    }
+    
+ 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,43 +126,68 @@ public class CotizaciónFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        grupotamaño = new javax.swing.ButtonGroup();
+        pagoBotones = new javax.swing.ButtonGroup();
+        servicioBotones = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        deptoCombo1 = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
+        municipioCombo1 = new javax.swing.JComboBox<>();
+        direccion1Txt = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        deptoCombo2 = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        municipioCombo2 = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
+        npaquetes = new javax.swing.JSpinner();
         jLabel11 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
+        pequeRBtn = new javax.swing.JRadioButton();
+        medianoRBtn = new javax.swing.JRadioButton();
+        grandeRBtn = new javax.swing.JRadioButton();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jRadioButton5 = new javax.swing.JRadioButton();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        totalestandarTxt = new javax.swing.JTextField();
+        totalespecialTxt = new javax.swing.JTextField();
+        cotizacionBtn = new javax.swing.JButton();
+        direccion2Txt = new javax.swing.JTextField();
+        recibecorreo3Txt = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
+        regionCombo1 = new javax.swing.JComboBox<>();
+        jLabel20 = new javax.swing.JLabel();
+        regionCombo2 = new javax.swing.JComboBox<>();
+        tpequeno = new javax.swing.JSpinner();
+        tmediano = new javax.swing.JSpinner();
+        tgrande = new javax.swing.JSpinner();
+        estandarRB = new javax.swing.JRadioButton();
+        especialRB = new javax.swing.JRadioButton();
         jLabel18 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jSeparator1 = new javax.swing.JSeparator();
+        jLabel21 = new javax.swing.JLabel();
+        pagoentrega = new javax.swing.JRadioButton();
+        pagotarjeta = new javax.swing.JRadioButton();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        nombrefactCombo = new javax.swing.JComboBox<>();
+        realizarpagoBtn = new javax.swing.JButton();
+        FacturaBtn = new javax.swing.JButton();
+        guiaBtn = new javax.swing.JButton();
+        servicioLbl = new javax.swing.JLabel();
+        totalnetoTxt = new javax.swing.JTextField();
+        tarjetasCombo = new javax.swing.JComboBox<>();
+        codigoguiaTxt = new javax.swing.JTextField();
+        cvvLbl = new javax.swing.JLabel();
+        cvvTxt = new javax.swing.JTextField();
+        numfacturaTxt = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,21 +198,44 @@ public class CotizaciónFrame extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton1.setText("REGRESAR AL MENÚ");
         jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 204, 255)));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Departamento");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        deptoCombo1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                deptoCombo1ItemStateChanged(evt);
+            }
+        });
+        deptoCombo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deptoCombo1ActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         jLabel3.setText("ORIGEN");
 
         jLabel4.setText("Municipio");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        municipioCombo1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                municipioCombo1ItemStateChanged(evt);
+            }
+        });
+        municipioCombo1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                municipioCombo1ActionPerformed(evt);
+            }
+        });
+
+        direccion1Txt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                direccion1TxtActionPerformed(evt);
             }
         });
 
@@ -96,29 +244,46 @@ public class CotizaciónFrame extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         jLabel6.setText("DESTINO");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        deptoCombo2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                deptoCombo2ItemStateChanged(evt);
+            }
+        });
 
         jLabel7.setText("Departamento");
 
         jLabel8.setText("Municipio");
-
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel9.setText("Dirección");
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel10.setText("No. de Paquetes");
 
-        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        npaquetes.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel11.setText("Peso Total de los Paquetes");
 
-        jRadioButton1.setText("Pequeño Peso ");
+        pequeRBtn.setText("Pequeño Peso ");
+        pequeRBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pequeRBtnActionPerformed(evt);
+            }
+        });
 
-        jRadioButton2.setText("Mediano Peso");
+        medianoRBtn.setText("Mediano Peso");
+        medianoRBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                medianoRBtnActionPerformed(evt);
+            }
+        });
 
-        jRadioButton3.setText("Grande Peso");
+        grandeRBtn.setText("Grande Peso");
+        grandeRBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                grandeRBtnActionPerformed(evt);
+            }
+        });
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 2, 10)); // NOI18N
         jLabel12.setText("(1 libra a 10 libras)");
@@ -129,12 +294,8 @@ public class CotizaciónFrame extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Segoe UI", 2, 10)); // NOI18N
         jLabel14.setText("(51 libras en adelante)");
 
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel15.setText("Precio de Envío");
-
-        jRadioButton4.setText("Precio Estándar");
-
-        jRadioButton5.setText("Precio Especial");
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 2, 10)); // NOI18N
         jLabel16.setText("Entrega de 3 a 5 días hábiles");
@@ -146,17 +307,151 @@ public class CotizaciónFrame extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton2.setText("COTIZAR");
         jButton2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 204, 255)));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
-        jButton3.setBackground(new java.awt.Color(102, 204, 255));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton3.setText("DESCARGAR COTIZACIÓN");
-        jButton3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 204, 255)));
+        totalestandarTxt.setEditable(false);
+        totalestandarTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        totalestandarTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                totalestandarTxtActionPerformed(evt);
+            }
+        });
 
-        jLabel18.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-        jLabel18.setText("TOTAL A PAGAR");
+        totalespecialTxt.setEditable(false);
+        totalespecialTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
-        jTextField5.setEditable(false);
-        jTextField5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        cotizacionBtn.setBackground(new java.awt.Color(102, 153, 255));
+        cotizacionBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        cotizacionBtn.setText("DESCARGAR COTIZACIÓN");
+        cotizacionBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 153, 255)));
+        cotizacionBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cotizacionBtnActionPerformed(evt);
+            }
+        });
+
+        recibecorreo3Txt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                recibecorreo3TxtActionPerformed(evt);
+            }
+        });
+
+        jLabel19.setText("Región");
+
+        regionCombo1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                regionCombo1ItemStateChanged(evt);
+            }
+        });
+
+        jLabel20.setText("Región");
+
+        regionCombo2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                regionCombo2ItemStateChanged(evt);
+            }
+        });
+
+        tpequeno.setModel(new javax.swing.SpinnerNumberModel(1, 1, 10, 1));
+
+        tmediano.setModel(new javax.swing.SpinnerNumberModel(11, 11, 50, 1));
+
+        tgrande.setModel(new javax.swing.SpinnerNumberModel(51, 51, null, 1));
+
+        estandarRB.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        estandarRB.setText("Servicio Estándar Q.");
+        estandarRB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                estandarRBActionPerformed(evt);
+            }
+        });
+
+        especialRB.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        especialRB.setText("Servicio Especial Q.");
+        especialRB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                especialRBActionPerformed(evt);
+            }
+        });
+
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel18.setText("Compra");
+
+        jLabel21.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabel21.setText("Tipo de Pago");
+
+        pagoentrega.setText("Pago contra Entrega");
+        pagoentrega.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pagoentregaActionPerformed(evt);
+            }
+        });
+
+        pagotarjeta.setText("Pago con Tarjeta de Crédito/Débito");
+        pagotarjeta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pagotarjetaActionPerformed(evt);
+            }
+        });
+
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        jLabel22.setText("Cobro adicional de Q.5.00");
+
+        jLabel23.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabel23.setText("Datos de facturación");
+
+        nombrefactCombo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                nombrefactComboItemStateChanged(evt);
+            }
+        });
+        nombrefactCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nombrefactComboActionPerformed(evt);
+            }
+        });
+
+        realizarpagoBtn.setBackground(new java.awt.Color(102, 204, 255));
+        realizarpagoBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        realizarpagoBtn.setText("REALIZAR PAGO");
+        realizarpagoBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 204, 255)));
+        realizarpagoBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                realizarpagoBtnActionPerformed(evt);
+            }
+        });
+
+        FacturaBtn.setBackground(new java.awt.Color(102, 153, 255));
+        FacturaBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        FacturaBtn.setText("DESCARGAR FACTURA DE LA ÚLTIMA COMPRA");
+        FacturaBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 153, 255)));
+        FacturaBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FacturaBtnActionPerformed(evt);
+            }
+        });
+
+        guiaBtn.setBackground(new java.awt.Color(102, 153, 255));
+        guiaBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        guiaBtn.setText("DESCARGAR GUÍA DE LA ÚLTIMA COMPRA");
+        guiaBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 153, 255)));
+        guiaBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guiaBtnActionPerformed(evt);
+            }
+        });
+
+        servicioLbl.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        servicioLbl.setText("Servicio");
+
+        totalnetoTxt.setEditable(false);
+        totalnetoTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+
+        cvvLbl.setText("CVV");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -165,161 +460,2048 @@ public class CotizaciónFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel3)
-                            .addComponent(jTextField1)
-                            .addComponent(jComboBox2, 0, 212, Short.MAX_VALUE)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel10)
-                            .addComponent(jSpinner1)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(64, 64, 64)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel6)
-                            .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField2)
-                            .addComponent(jLabel18)
-                            .addComponent(jTextField5)))
-                    .addComponent(jLabel1))
-                .addGap(26, 26, 26)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel15)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
+                            .addComponent(cotizacionBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRadioButton1)
-                            .addComponent(jRadioButton2)
-                            .addComponent(jRadioButton3))
-                        .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel14)
-                            .addComponent(jLabel13)
-                            .addComponent(jLabel12)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRadioButton4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel16))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRadioButton5)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel17))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
+                                .addComponent(estandarRB)
+                                .addGap(48, 48, 48)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addGap(51, 51, 51))
+                                    .addComponent(especialRB)
+                                    .addComponent(totalespecialTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel17)))
+                            .addComponent(totalestandarTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel16))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(numfacturaTxt)
+                            .addComponent(codigoguiaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(37, 37, 37)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(60, 60, 60))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(direccion1Txt, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(municipioCombo1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(deptoCombo1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(regionCombo1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(npaquetes, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(68, 68, 68)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(municipioCombo2, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(deptoCombo2, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(regionCombo2, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(direccion2Txt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(tpequeno, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(pequeRBtn))
+                                        .addGap(11, 11, 11)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(medianoRBtn)
+                                            .addComponent(tmediano, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(21, 21, 21)
+                                                .addComponent(jLabel13))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(21, 21, 21)
+                                        .addComponent(jLabel12)))
+                                .addGap(52, 52, 52)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(21, 21, 21)
+                                        .addComponent(jLabel14))
+                                    .addComponent(grandeRBtn)
+                                    .addComponent(tgrande, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(116, 116, 116)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(pagotarjeta)
+                                    .addComponent(pagoentrega)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(21, 21, 21)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel22)
+                                            .addComponent(tarjetasCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jLabel23))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cvvTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cvvLbl))
+                                .addGap(38, 38, 38))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel18)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(recibecorreo3Txt, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel21)
+                                            .addComponent(nombrefactCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(servicioLbl)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(totalnetoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(realizarpagoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(FacturaBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addContainerGap())
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(guiaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel6))
-                        .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(17, 17, 17)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel23)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(nombrefactCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(servicioLbl)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(totalnetoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(realizarpagoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(FacturaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel18))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel21))
+                                .addGap(12, 12, 12)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel19)
+                                    .addComponent(jLabel20))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(regionCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(regionCombo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(16, 16, 16)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel7))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(24, 24, 24)
+                                    .addComponent(deptoCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(deptoCombo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel8))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel11)
+                                    .addComponent(municipioCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(municipioCombo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(20, 20, 20)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel5))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jRadioButton1)
-                                    .addComponent(jLabel12))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jRadioButton2)
-                                    .addComponent(jLabel13))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jRadioButton3)
-                                    .addComponent(jLabel14))))
-                        .addGap(24, 24, 24)
-                        .addComponent(jLabel15)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jRadioButton4)
-                            .addComponent(jLabel16))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jRadioButton5)
-                            .addComponent(jLabel17))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(direccion1Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(direccion2Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(14, 14, 14)
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(npaquetes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(85, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(258, 258, 258)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel9))
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(pagoentrega)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel22)
+                                .addGap(24, 24, 24)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(pagotarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cvvLbl))
+                                .addGap(7, 7, 7)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(tarjetasCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cvvTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(recibecorreo3Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(193, 193, 193)))))
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11)
+                    .addComponent(guiaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(tpequeno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tmediano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tgrande, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel18))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(pequeRBtn)
+                    .addComponent(medianoRBtn)
+                    .addComponent(grandeRBtn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51))
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel14))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(codigoguiaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(numfacturaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel15)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(estandarRB)
+                                .addComponent(especialRB))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(totalestandarTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(totalespecialTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel16)
+                                .addComponent(jLabel17)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(10, 10, 10)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(cotizacionBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(68, 68, 68))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void direccion1TxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_direccion1TxtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_direccion1TxtActionPerformed
 
+    private void municipioCombo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_municipioCombo1ActionPerformed
+        // TODO add your handling code here:
+         
+    }//GEN-LAST:event_municipioCombo1ActionPerformed
+
+    private void regionCombo1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_regionCombo1ItemStateChanged
+        // TODO add your handling code here:
+        if(evt.getStateChange()== ItemEvent.SELECTED){ 
+            if(this.regionCombo1.getSelectedIndex()==0){ 
+                this.deptoCombo1.setModel(new DefaultComboBoxModel(this.getMetropolitana(this.regionCombo1.getSelectedItem().toString())));
+            }else if(this.regionCombo1.getSelectedIndex()==1){ 
+                this.deptoCombo1.setModel(new DefaultComboBoxModel(this.getNorte(this.regionCombo1.getSelectedItem().toString())));
+            }else if(this.regionCombo1.getSelectedIndex()==2){ 
+                this.deptoCombo1.setModel(new DefaultComboBoxModel(this.getNororiente(this.regionCombo1.getSelectedItem().toString())));
+            }else if(this.regionCombo1.getSelectedIndex()==3){ 
+                this.deptoCombo1.setModel(new DefaultComboBoxModel(this.getSuroriente(this.regionCombo1.getSelectedItem().toString())));
+            }else if(this.regionCombo1.getSelectedIndex()==4){ 
+                this.deptoCombo1.setModel(new DefaultComboBoxModel(this.getNoroccidente(this.regionCombo1.getSelectedItem().toString())));
+            }else if(this.regionCombo1.getSelectedIndex()==5){ 
+                this.deptoCombo1.setModel(new DefaultComboBoxModel(this.getSuroccidente(this.regionCombo1.getSelectedItem().toString())));
+            }
+   
+        }
+        if (evt.getStateChange()== ItemEvent.SELECTED){
+             if(this.deptoCombo1.getSelectedIndex()==0){
+                if(this.deptoCombo1.getSelectedItem().toString().equals("Guatemala")){
+                    String depto1 = deptoCombo1.getSelectedItem().toString();
+                    municipioCombo1.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo1.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                }
+                if(this.deptoCombo1.getSelectedItem().toString().equals("Baja Verapaz")){
+                    String depto1 = deptoCombo1.getSelectedItem().toString();
+                    municipioCombo1.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo1.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo1.getSelectedItem().toString().equals("Chiquimula")){
+                    String depto1 = deptoCombo1.getSelectedItem().toString();
+                    municipioCombo1.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo1.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo1.getSelectedItem().toString().equals("Jutiapa")){
+                    String depto1 = deptoCombo1.getSelectedItem().toString();
+                    municipioCombo1.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo1.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                }
+                if(this.deptoCombo1.getSelectedItem().toString().equals("Huehuetenango")){
+                    String depto1 = deptoCombo1.getSelectedItem().toString();
+                    municipioCombo1.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo1.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo1.getSelectedItem().toString().equals("Quetzaltenango")){
+                    String depto1 = deptoCombo1.getSelectedItem().toString();
+                    municipioCombo1.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo1.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+            }
+         }
+        
+    }//GEN-LAST:event_regionCombo1ItemStateChanged
+
+    private void regionCombo2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_regionCombo2ItemStateChanged
+        // TODO add your handling code here:
+        if(evt.getStateChange()== ItemEvent.SELECTED){ 
+            if(this.regionCombo2.getSelectedIndex()==0){ 
+                this.deptoCombo2.setModel(new DefaultComboBoxModel(this.getMetropolitana(this.regionCombo2.getSelectedItem().toString())));
+                for (int k=0;k<AppState.listaregiones.size();k++){
+                        if (regionCombo2.getSelectedItem().toString().equals(AppState.listaregiones.get(k).getCodigoR())==true ){   
+                           precioest = (AppState.listaregiones.get(k).getPrecioEst());
+                           precioesp = (AppState.listaregiones.get(k).getPrecioEsp());
+                            System.out.println(precioest);
+                            System.out.println(precioesp);
+                        }
+               }  
+            }else if(this.regionCombo2.getSelectedIndex()==1){ 
+                this.deptoCombo2.setModel(new DefaultComboBoxModel(this.getNorte(this.regionCombo2.getSelectedItem().toString())));
+                for (int k=0;k<AppState.listaregiones.size();k++){
+                        if (regionCombo2.getSelectedItem().toString().equals(AppState.listaregiones.get(k).getCodigoR())==true ){   
+                           precioest = (AppState.listaregiones.get(k).getPrecioEst());
+                           precioesp = (AppState.listaregiones.get(k).getPrecioEsp());
+                            System.out.println(precioest);
+                            System.out.println(precioesp);
+                        }
+               } 
+            }else if(this.regionCombo2.getSelectedIndex()==2){ 
+                this.deptoCombo2.setModel(new DefaultComboBoxModel(this.getNororiente(this.regionCombo2.getSelectedItem().toString())));
+                for (int k=0;k<AppState.listaregiones.size();k++){
+                        if (regionCombo2.getSelectedItem().toString().equals(AppState.listaregiones.get(k).getCodigoR())==true ){   
+                            precioest = (AppState.listaregiones.get(k).getPrecioEst());
+                            precioesp = (AppState.listaregiones.get(k).getPrecioEsp());
+                            System.out.println(precioest);
+                            System.out.println(precioesp);
+                        }
+               } 
+            }else if(this.regionCombo2.getSelectedIndex()==3){ 
+                this.deptoCombo2.setModel(new DefaultComboBoxModel(this.getSuroriente(this.regionCombo2.getSelectedItem().toString())));
+                for (int k=0;k<AppState.listaregiones.size();k++){
+                        if (regionCombo2.getSelectedItem().toString().equals(AppState.listaregiones.get(k).getCodigoR())==true ){   
+                            precioest = (AppState.listaregiones.get(k).getPrecioEst());
+                            precioesp = (AppState.listaregiones.get(k).getPrecioEsp());
+                            System.out.println(precioest);
+                            System.out.println(precioesp);
+                        }
+               } 
+            }else if(this.regionCombo2.getSelectedIndex()==4){ 
+                this.deptoCombo2.setModel(new DefaultComboBoxModel(this.getNoroccidente(this.regionCombo2.getSelectedItem().toString())));
+                for (int k=0;k<AppState.listaregiones.size();k++){
+                        if (regionCombo2.getSelectedItem().toString().equals(AppState.listaregiones.get(k).getCodigoR())==true ){   
+                            precioest = (AppState.listaregiones.get(k).getPrecioEst());
+                            precioesp = (AppState.listaregiones.get(k).getPrecioEsp());
+                            System.out.println(precioest);
+                            System.out.println(precioesp);
+                        }
+               } 
+            }else if(this.regionCombo2.getSelectedIndex()==5){ 
+                this.deptoCombo2.setModel(new DefaultComboBoxModel(this.getSuroccidente(this.regionCombo2.getSelectedItem().toString())));
+                for (int k=0;k<AppState.listaregiones.size();k++){
+                        if (regionCombo2.getSelectedItem().toString().equals(AppState.listaregiones.get(k).getCodigoR())==true ){   
+                           double precioest = (AppState.listaregiones.get(k).getPrecioEst());
+                           double precioesp = (AppState.listaregiones.get(k).getPrecioEsp());
+                            System.out.println(precioest);
+                            System.out.println(precioesp);
+                        }
+               } 
+            }
+        }
+        if (evt.getStateChange()== ItemEvent.SELECTED){
+              if(this.deptoCombo2.getSelectedIndex()==0){
+                if(this.deptoCombo2.getSelectedItem().toString().equals("Guatemala")){
+                    String depto2 = deptoCombo2.getSelectedItem().toString();
+                    municipioCombo2.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto2.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo2.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                 }
+                if(this.deptoCombo2.getSelectedItem().toString().equals("Baja Verapaz")){
+                    String depto2 = deptoCombo2.getSelectedItem().toString();
+                    municipioCombo2.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto2.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo2.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                 }
+                if(this.deptoCombo2.getSelectedItem().toString().equals("Chiquimula")){
+                    String depto2 = deptoCombo2.getSelectedItem().toString();
+                    municipioCombo2.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto2.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo2.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                 }
+                if(this.deptoCombo2.getSelectedItem().toString().equals("Jutiapa")){
+                    String depto2 = deptoCombo2.getSelectedItem().toString();
+                    municipioCombo2.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto2.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo2.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                 }
+                if(this.deptoCombo2.getSelectedItem().toString().equals("Huehuetenango")){
+                    String depto2 = deptoCombo2.getSelectedItem().toString();
+                    municipioCombo2.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto2.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo2.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                 }
+                if(this.deptoCombo2.getSelectedItem().toString().equals("Quetzaltenango")){
+                    String depto2 = deptoCombo2.getSelectedItem().toString();
+                    municipioCombo2.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto2.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo2.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                 }
+
+              }
+        }
+       
+    }//GEN-LAST:event_regionCombo2ItemStateChanged
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        MenuUsuario menuus = new MenuUsuario();
+        menuus.setVisible(true);
+        String datocorreo = recibecorreo3Txt.getText();
+        menuus.recibecorreoTxt.setText(datocorreo);
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void deptoCombo1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_deptoCombo1ItemStateChanged
+        // TODO add your handling code here:
+         if(evt.getStateChange()== ItemEvent.SELECTED){
+                if(this.deptoCombo1.getSelectedItem().toString().equals("Guatemala")){
+                    String depto1 = deptoCombo1.getSelectedItem().toString();
+                    municipioCombo1.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo1.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                }
+                else if(this.deptoCombo1.getSelectedItem().toString().equals("Baja Verapaz")){
+                    String depto1 = deptoCombo1.getSelectedItem().toString();
+                    municipioCombo1.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo1.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+          
+                if(this.deptoCombo1.getSelectedItem().toString().equals("Escuintla")){
+                    String depto1 = deptoCombo1.getSelectedItem().toString();
+                    municipioCombo1.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo1.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo1.getSelectedItem().toString().equals("Chimaltenango")){
+                    String depto1 = deptoCombo1.getSelectedItem().toString();
+                    municipioCombo1.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo1.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo1.getSelectedItem().toString().equals("Sacatepéquez")){
+                    String depto1 = deptoCombo1.getSelectedItem().toString();
+                    municipioCombo1.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo1.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo1.getSelectedItem().toString().equals("Alta Verapaz")){
+                    String depto1 = deptoCombo1.getSelectedItem().toString();
+                    municipioCombo1.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo1.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo1.getSelectedItem().toString().equals("Petén")){
+                    String depto1 = deptoCombo1.getSelectedItem().toString();
+                    municipioCombo1.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo1.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo1.getSelectedItem().toString().equals("Chiquimula")){
+                    String depto1 = deptoCombo1.getSelectedItem().toString();
+                    municipioCombo1.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo1.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo1.getSelectedItem().toString().equals("El Progreso")){
+                    String depto1 = deptoCombo1.getSelectedItem().toString();
+                    municipioCombo1.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo1.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo1.getSelectedItem().toString().equals("Izabal")){
+                    String depto1 = deptoCombo1.getSelectedItem().toString();
+                    municipioCombo1.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo1.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo1.getSelectedItem().toString().equals("Zacapa")){
+                    String depto1 = deptoCombo1.getSelectedItem().toString();
+                    municipioCombo1.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo1.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo1.getSelectedItem().toString().equals("Jutiapa")){
+                    String depto1 = deptoCombo1.getSelectedItem().toString();
+                    municipioCombo1.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo1.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                }
+                if(this.deptoCombo1.getSelectedItem().toString().equals("Jalapa")){
+                    String depto1 = deptoCombo1.getSelectedItem().toString();
+                    municipioCombo1.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo1.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo1.getSelectedItem().toString().equals("Santa Rosa")){
+                    String depto1 = deptoCombo1.getSelectedItem().toString();
+                    municipioCombo1.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo1.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo1.getSelectedItem().toString().equals("Huehuetenango")){
+                    String depto1 = deptoCombo1.getSelectedItem().toString();
+                    municipioCombo1.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo1.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo1.getSelectedItem().toString().equals("Quiché")){
+                    String depto1 = deptoCombo1.getSelectedItem().toString();
+                    municipioCombo1.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo1.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo1.getSelectedItem().toString().equals("Quetzaltenango")){
+                    String depto1 = deptoCombo1.getSelectedItem().toString();
+                    municipioCombo1.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo1.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo1.getSelectedItem().toString().equals("Retalhuleu")){
+                    String depto1 = deptoCombo1.getSelectedItem().toString();
+                    municipioCombo1.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo1.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo1.getSelectedItem().toString().equals("San Marcos")){
+                    String depto1 = deptoCombo1.getSelectedItem().toString();
+                    municipioCombo1.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo1.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo1.getSelectedItem().toString().equals("Suchitepéquez")){
+                    String depto1 = deptoCombo1.getSelectedItem().toString();
+                    municipioCombo1.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo1.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo1.getSelectedItem().toString().equals("Sololá")){
+                    String depto1 = deptoCombo1.getSelectedItem().toString();
+                    municipioCombo1.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo1.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                }
+                if(this.deptoCombo1.getSelectedItem().toString().equals("Totonicapán")){
+                    String depto1 = deptoCombo1.getSelectedItem().toString();
+                    municipioCombo1.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo1.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+        }
+
+    }//GEN-LAST:event_deptoCombo1ItemStateChanged
+
+    private void deptoCombo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deptoCombo1ActionPerformed
+        // TODO add your handling code here:
+
+
+    }//GEN-LAST:event_deptoCombo1ActionPerformed
+
+    private void deptoCombo2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_deptoCombo2ItemStateChanged
+        // TODO add your handling code here:
+        if(evt.getStateChange()== ItemEvent.SELECTED){
+                if(this.deptoCombo2.getSelectedItem().toString().equals("Guatemala")){
+                    String depto1 = deptoCombo2.getSelectedItem().toString();
+                    municipioCombo2.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo2.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                }
+                else if(this.deptoCombo2.getSelectedItem().toString().equals("Baja Verapaz")){
+                    String depto1 = deptoCombo2.getSelectedItem().toString();
+                    municipioCombo2.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo2.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+          
+                if(this.deptoCombo2.getSelectedItem().toString().equals("Escuintla")){
+                    String depto1 = deptoCombo2.getSelectedItem().toString();
+                    municipioCombo2.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo2.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo2.getSelectedItem().toString().equals("Chimaltenango")){
+                    String depto1 = deptoCombo2.getSelectedItem().toString();
+                    municipioCombo2.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo2.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo2.getSelectedItem().toString().equals("Sacatepéquez")){
+                    String depto1 = deptoCombo2.getSelectedItem().toString();
+                    municipioCombo2.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo2.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo2.getSelectedItem().toString().equals("Alta Verapaz")){
+                    String depto1 = deptoCombo2.getSelectedItem().toString();
+                    municipioCombo2.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo2.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo2.getSelectedItem().toString().equals("Petén")){
+                    String depto1 = deptoCombo2.getSelectedItem().toString();
+                    municipioCombo2.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo2.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo2.getSelectedItem().toString().equals("Chiquimula")){
+                    String depto1 = deptoCombo2.getSelectedItem().toString();
+                    municipioCombo2.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo2.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo2.getSelectedItem().toString().equals("El Progreso")){
+                    String depto1 = deptoCombo2.getSelectedItem().toString();
+                    municipioCombo2.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo2.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo2.getSelectedItem().toString().equals("Izabal")){
+                    String depto1 = deptoCombo2.getSelectedItem().toString();
+                    municipioCombo2.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo2.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo2.getSelectedItem().toString().equals("Zacapa")){
+                    String depto1 = deptoCombo2.getSelectedItem().toString();
+                    municipioCombo2.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo2.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo2.getSelectedItem().toString().equals("Jutiapa")){
+                    String depto1 = deptoCombo2.getSelectedItem().toString();
+                    municipioCombo2.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo2.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                }
+                if(this.deptoCombo2.getSelectedItem().toString().equals("Jalapa")){
+                    String depto1 = deptoCombo2.getSelectedItem().toString();
+                    municipioCombo2.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo2.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo2.getSelectedItem().toString().equals("Santa Rosa")){
+                    String depto1 = deptoCombo2.getSelectedItem().toString();
+                    municipioCombo2.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo2.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo2.getSelectedItem().toString().equals("Huehuetenango")){
+                    String depto1 = deptoCombo2.getSelectedItem().toString();
+                    municipioCombo2.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo2.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo2.getSelectedItem().toString().equals("Quiché")){
+                    String depto1 = deptoCombo2.getSelectedItem().toString();
+                    municipioCombo2.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo2.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo2.getSelectedItem().toString().equals("Quetzaltenango")){
+                    String depto1 = deptoCombo2.getSelectedItem().toString();
+                    municipioCombo2.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo2.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo2.getSelectedItem().toString().equals("Retalhuleu")){
+                    String depto1 = deptoCombo2.getSelectedItem().toString();
+                    municipioCombo2.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo2.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo2.getSelectedItem().toString().equals("San Marcos")){
+                    String depto1 = deptoCombo2.getSelectedItem().toString();
+                    municipioCombo2.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo2.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo2.getSelectedItem().toString().equals("Suchitepéquez")){
+                    String depto1 = deptoCombo2.getSelectedItem().toString();
+                    municipioCombo2.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo2.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+                if(this.deptoCombo2.getSelectedItem().toString().equals("Sololá")){
+                    String depto1 = deptoCombo2.getSelectedItem().toString();
+                    municipioCombo2.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo2.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                }
+                if(this.deptoCombo2.getSelectedItem().toString().equals("Totonicapán")){
+                    String depto1 = deptoCombo2.getSelectedItem().toString();
+                    municipioCombo2.removeAllItems();
+                    for (int k=0;k<AppState.listasucursales.size();k++){
+                        if (depto1.equals(AppState.listasucursales.get(k).getDepartamento())==true ){   
+                            municipioCombo2.addItem(AppState.listasucursales.get(k).getMunicipio().toString());
+                        }
+                    }  
+                } 
+        }
+
+    }//GEN-LAST:event_deptoCombo2ItemStateChanged
+
+    private void pequeRBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pequeRBtnActionPerformed
+        // TODO add your handling code here:
+        if (pequeRBtn.isSelected()==true){
+            tpequeno.setEnabled(true);
+            tmediano.setEnabled(false);
+            tgrande.setEnabled(false);
+        }
+    }//GEN-LAST:event_pequeRBtnActionPerformed
+
+    private void medianoRBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_medianoRBtnActionPerformed
+        // TODO add your handling code here:
+        if (medianoRBtn.isSelected()==true){
+            tpequeno.setEnabled(false);
+            tmediano.setEnabled(true);
+            tgrande.setEnabled(false);
+        }
+    }//GEN-LAST:event_medianoRBtnActionPerformed
+
+    private void grandeRBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_grandeRBtnActionPerformed
+        // TODO add your handling code here:
+        if (grandeRBtn.isSelected()==true){
+            tpequeno.setEnabled(false);
+            tmediano.setEnabled(false);
+            tgrande.setEnabled(true);
+        }
+    }//GEN-LAST:event_grandeRBtnActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        if(direccion1Txt.getText().isEmpty() || direccion2Txt.getText().isEmpty() || municipioCombo1.getSelectedItem()==null || municipioCombo2.getSelectedItem()==null){
+            JOptionPane.showMessageDialog(null, "Debe llenar todos los campos", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
+        } else if(pequeRBtn.isSelected()==false && medianoRBtn.isSelected()==false && grandeRBtn.isSelected()==false){
+            JOptionPane.showMessageDialog(null, "Debe especificar el tamaño del paquete", "Seleccione una opción", JOptionPane.WARNING_MESSAGE);
+        }else{
+            
+            
+            
+            if (pequeRBtn.isSelected()==true){
+                
+                nombrefactCombo.removeAllItems();
+                String correouss = recibecorreo3Txt.getText();
+                double tamaño = Double.parseDouble(tpequeno.getValue().toString()) ;
+                double paquetes = Double.parseDouble(npaquetes.getValue().toString()) ;
+                totalestandar= precioest * tamaño * paquetes;
+                totalespecial= precioesp * tamaño * paquetes;
+                DecimalFormat df = new DecimalFormat("#.00");
+                totalestandarTxt.setText(String.valueOf(df.format(totalestandar)));
+                totalespecialTxt.setText(String.valueOf(df.format(totalespecial)));
+                for (int k=0;k<AppState.listafacturacion.size();k++){
+                        if (correouss.equals(AppState.listafacturacion.get(k).getPropietarioF())==true ){   
+                            nombrefactCombo.addItem(AppState.listafacturacion.get(k).getNombreF().toString());
+                            
+                        }
+                }
+                cotizacionBtn.setEnabled(true);
+                JOptionPane.showMessageDialog(null, "Cotización exitosa", "Cotización de Paquetes", JOptionPane.INFORMATION_MESSAGE);
+            }
+            if (medianoRBtn.isSelected()==true){
+                nombrefactCombo.removeAllItems();
+                String correouss = recibecorreo3Txt.getText();
+                double tamaño = Double.parseDouble(tmediano.getValue().toString()) ;
+                double paquetes = Double.parseDouble(npaquetes.getValue().toString()) ;
+                totalestandar= precioest * tamaño * paquetes;
+                totalespecial= precioesp * tamaño * paquetes;
+                DecimalFormat df = new DecimalFormat("#.00");
+                totalestandarTxt.setText(String.valueOf(df.format(totalestandar)));
+                totalespecialTxt.setText(String.valueOf(df.format(totalespecial)));
+                 for (int k=0;k<AppState.listafacturacion.size();k++){
+                        if (correouss.equals(AppState.listafacturacion.get(k).getPropietarioF())==true ){   
+                           nombrefactCombo.addItem(AppState.listafacturacion.get(k).getNombreF().toString());
+                           
+                        }
+                } 
+                 cotizacionBtn.setEnabled(true);
+                 JOptionPane.showMessageDialog(null, "Cotización exitosa", "Cotización de Paquetes", JOptionPane.INFORMATION_MESSAGE);
+            }
+            if (grandeRBtn.isSelected()==true){
+                nombrefactCombo.removeAllItems();
+                String correouss = recibecorreo3Txt.getText();
+                double tamaño = Double.parseDouble(tgrande.getValue().toString()) ;
+                double paquetes = Double.parseDouble(npaquetes.getValue().toString()) ;
+                totalestandar= precioest * tamaño * paquetes;
+                totalespecial= precioesp * tamaño * paquetes;
+                DecimalFormat df = new DecimalFormat("#.00");
+                totalestandarTxt.setText(String.valueOf(df.format(totalestandar)));
+                totalespecialTxt.setText(String.valueOf(df.format(totalespecial)));
+                 for (int k=0;k<AppState.listafacturacion.size();k++){
+                        if (correouss.equals(AppState.listafacturacion.get(k).getPropietarioF())==true ){   
+                           nombrefactCombo.addItem(AppState.listafacturacion.get(k).getNombreF().toString());
+                            
+                        }
+                }
+                 cotizacionBtn.setEnabled(true);
+                 JOptionPane.showMessageDialog(null, "Cotización exitosa", "Cotización de Paquetes", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }    
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void nombrefactComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombrefactComboActionPerformed
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_nombrefactComboActionPerformed
+
+    private void nombrefactComboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_nombrefactComboItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nombrefactComboItemStateChanged
+
+    private void recibecorreo3TxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recibecorreo3TxtActionPerformed
+        // TODO add your handling code here:
+        for (int k=0;k<AppState.listafacturacion.size();k++){
+                        if (recibecorreo3Txt.equals(AppState.listafacturacion.get(k).getPropietarioF())==true ){   
+                            nombrefactCombo.addItem(AppState.listafacturacion.get(k).getNombreF().toString());
+                            
+                        }
+        }  
+    }//GEN-LAST:event_recibecorreo3TxtActionPerformed
+
+    private void estandarRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estandarRBActionPerformed
+        // TODO add your handling code here:
+        if (estandarRB.isSelected()==true) {  
+            servicioLbl.setText("Servicio Estándar: Total Q.");
+        }
+        
+        if (pagoentrega.isSelected()==true) {  
+                totalneto= totalestandar + 5;
+                DecimalFormat df = new DecimalFormat("#.00");
+                totalnetoTxt.setText(String.valueOf(df.format(totalneto)));
+        }
+        else if (pagotarjeta.isSelected()==true) {  
+                DecimalFormat df = new DecimalFormat("#.00");
+                totalnetoTxt.setText(String.valueOf(df.format(totalestandar)));
+        }
+      
+                
+    }//GEN-LAST:event_estandarRBActionPerformed
+
+    private void especialRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_especialRBActionPerformed
+        // TODO add your handling code here:
+        if (especialRB.isSelected()==true) {  
+            servicioLbl.setText("Servicio Especial: Total Q.");
+        }
+        
+        if (pagoentrega.isSelected()==true) {  
+                 totalneto= totalespecial + 5;
+                 DecimalFormat df = new DecimalFormat("#.00");
+                 totalnetoTxt.setText(String.valueOf(df.format(totalneto)));
+
+        } else if (pagotarjeta.isSelected()==true) {  
+                DecimalFormat df = new DecimalFormat("#.00");
+                totalnetoTxt.setText(String.valueOf(df.format(totalespecial)));
+        }
+
+    }//GEN-LAST:event_especialRBActionPerformed
+
+    private void municipioCombo1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_municipioCombo1ItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_municipioCombo1ItemStateChanged
+
+    private void pagoentregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagoentregaActionPerformed
+        // TODO add your handling code here:
+        if (pagoentrega.isSelected()==true) {  
+            if (estandarRB.isSelected()==false && especialRB.isSelected()==false) {  
+                JOptionPane.showMessageDialog(null, "Debe Seleccionar tipo de Servicio", "Seleccione la opción que desea", JOptionPane.WARNING_MESSAGE);
+                pagoBotones.clearSelection();
+            }else{
+                cvvTxt.setVisible(false);
+                cvvLbl.setVisible(false);
+                tarjetasCombo.setVisible(false);
+                if (estandarRB.isSelected()==true) {  
+                totalneto= totalestandar + 5;
+                DecimalFormat df = new DecimalFormat("#.00");
+                totalnetoTxt.setText(String.valueOf(df.format(totalneto)));
+                }else if (especialRB.isSelected()==true){
+                 totalneto= totalespecial + 5;
+                 DecimalFormat df = new DecimalFormat("#.00");
+                 totalnetoTxt.setText(String.valueOf(df.format(totalneto)));
+                }
+            }
+        }
+    }//GEN-LAST:event_pagoentregaActionPerformed
+
+    private void totalestandarTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalestandarTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_totalestandarTxtActionPerformed
+
+    private void pagotarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagotarjetaActionPerformed
+        // TODO add your handling code here:
+        if (pagotarjeta.isSelected()==true) {  
+            if (estandarRB.isSelected()==false && especialRB.isSelected()==false) {  
+                JOptionPane.showMessageDialog(null, "Debe Seleccionar tipo de Servicio", "Seleccione la opción que desea", JOptionPane.WARNING_MESSAGE);
+                pagoBotones.clearSelection();
+            }else{
+                tarjetasCombo.removeAllItems();
+                tarjetasCombo.setVisible(true);
+                 cvvTxt.setVisible(true);
+                cvvLbl.setVisible(true);
+                String ntarjeta= "XXXXXXXXX";
+                if (estandarRB.isSelected()==true) {  
+                DecimalFormat df = new DecimalFormat("#.00");
+                totalnetoTxt.setText(String.valueOf(df.format(totalestandar)));
+                }else if (especialRB.isSelected()==true){
+                 DecimalFormat df = new DecimalFormat("#.00");
+                 totalnetoTxt.setText(String.valueOf(df.format(totalespecial)));
+                }
+                 for (int k=0;k<AppState.listatarjetas.size();k++){
+                        if (recibecorreo3Txt.getText().toString().equals(AppState.listatarjetas.get(k).getPropietarioT().toString())==true ){   
+                            tarjetasCombo.addItem(ntarjeta+(String.valueOf(AppState.listatarjetas.get(k).getNumeroT())).substring(9,13));    
+                        }
+                }
+            }
+        }
+    }//GEN-LAST:event_pagotarjetaActionPerformed
+
+    private void realizarpagoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realizarpagoBtnActionPerformed
+        // TODO add your handling code here:
+        if(municipioCombo1.getSelectedItem()==null || municipioCombo2.getSelectedItem()==null || direccion1Txt.getText().isEmpty() || direccion2Txt.getText().isEmpty() || totalestandarTxt.getText().isEmpty()||totalespecialTxt.getText().isEmpty() || (pagoentrega.isSelected()==false && pagotarjeta.isSelected()==false || nombrefactCombo.getSelectedItem()==null)){
+            JOptionPane.showMessageDialog(null, "Debe llenar todos los campos", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
+        }else if (pagotarjeta.isSelected()==true && (cvvTxt.getText().isEmpty()|| tarjetasCombo.getSelectedItem()==null )){  
+            JOptionPane.showMessageDialog(null, "Debe completar los datos de la tarjeta", "Campos faltantes", JOptionPane.WARNING_MESSAGE);
+        }else{  
+            boolean error=false;
+            for (int k=0;k<AppState.listaenvios.size();k++){
+                if (codigoguiaTxt.getText().toString().equals(AppState.listaenvios.get(k).getCodigoPaq())==true || numfacturaTxt.getText().toString().equals(AppState.listaenvios.get(k).getNumFactura())==true ){      
+                    error= true;
+                    break;
+                }
+            }
+            if (error){
+                codigoguiaTxt.setText(null);
+                numfacturaTxt.setText(null);
+                JOptionPane.showMessageDialog(null, "Sus código de facturación se encuentran duplicados, se generarán códigos nuevos", "Códigos de facturación", JOptionPane.WARNING_MESSAGE);
+                codigoguiaTxt.setText(codigoguia());
+                numfacturaTxt.setText(numfactura());
+            }else{
+                FacturaBtn.setEnabled(true);
+                guiaBtn.setEnabled(true);
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+                correocliente = recibecorreo3Txt.getText();
+                codigopaq = codigoguiaTxt.getText();
+                numfactura = numfacturaTxt.getText();
+                tiposervicio1 = "Servicio Estándar" ;
+                tiposervicio2 = "Servicio Especial" ;
+                direccion1 = direccion1Txt.getText();
+                direccion2 = direccion2Txt.getText();
+                destinatario = nombrefactCombo.getSelectedItem().toString();
+                origen = (deptoCombo1.getSelectedItem().toString() + ", " + municipioCombo1.getSelectedItem().toString()+". "+direccion1);
+                destino = (deptoCombo2.getSelectedItem().toString() + ", " + municipioCombo2.getSelectedItem().toString()+". "+direccion2);
+                tipopago1 = "Pago contra entrega";
+                tipopago2 = "Pago con Tarjeta";
+               
+                numpaquetes = Long.parseLong(npaquetes.getValue().toString());
+                contadorcliente = numpaquetes;
+                fechaenvio = dtf.format(LocalDateTime.now());
+                totalpago = Double.parseDouble(totalnetoTxt.getText());
+                DatosEnvios adddatoenvio = new DatosEnvios();
+                
+                for (int k=0;k<AppState.listafacturacion.size();k++){
+                        if (destinatario.equals(AppState.listafacturacion.get(k).getNombreF())==true ){   
+                            NIT=(AppState.listafacturacion.get(k).getNITF());
+                        }
+                }  
+                
+                
+                
+                if (pequeRBtn.isSelected()==true) { 
+                    tamanopaq = Long.parseLong(tpequeno.getValue().toString());
+                    if (pagoentrega.isSelected()==true && estandarRB.isSelected()==true) {  
+                        tipopago = tipopago1;
+                        adddatoenvio.setCorreoCliente(correocliente);
+                        adddatoenvio.setCodigoPaq(codigopaq);
+                        adddatoenvio.setNumFactura(numfactura);
+                        adddatoenvio.setTipoServicio(tiposervicio1);
+                        adddatoenvio.setDestinatario(destinatario);
+                        adddatoenvio.setOrigen(origen);
+                        adddatoenvio.setDestino(destino);
+                        adddatoenvio.setNIT(NIT);
+                        adddatoenvio.setTipoPago(tipopago1);
+                        adddatoenvio.setTamanoPaquete(tamanopaq);
+                        adddatoenvio.setNumPaquetes(numpaquetes);
+                        adddatoenvio.setFechaEnvio(fechaenvio);
+                        adddatoenvio.setTotalPago(totalpago);
+                        AppState.listaenvios.add(adddatoenvio);
+                        
+                        for (int k=0;k<listaregiones.size();k++){
+                            if (regionCombo2.getSelectedItem().toString().equals(listaregiones.get(k).getCodigoR())==true){      
+                                listaregiones.get(k).setContadorRegion(listaregiones.get(k).getContadorRegion()+1);
+                                for(int i = 0; i< AppState.listaregiones.size(); i++){ 
+                                    System.out.println(AppState.listaregiones.get(i).getCodigoR()+"-"+AppState.listaregiones.get(i).getPrecioEst()+"-"+AppState.listaregiones.get(i).getPrecioEsp()+"-"+AppState.listaregiones.get(i).getContadorRegion());   
+                                }
+                                break;
+                            }
+                        } 
+
+                        for(int i = 0; i< AppState.listaenvios.size(); i++){ 
+                            System.out.println(AppState.listaenvios.get(i).getCorreoCliente()+"-"+AppState.listaenvios.get(i).getCodigoPaq()+"-"+AppState.listaenvios.get(i).getNumFactura()+"-"+AppState.listaenvios.get(i).getTipoServicio()+"-"+AppState.listaenvios.get(i).getDestinatario()+"-"+AppState.listaenvios.get(i).getOrigen()+"-"
+                            +AppState.listaenvios.get(i).getDestino()+"-"+AppState.listaenvios.get(i).getNIT()+"-"+AppState.listaenvios.get(i).getTipoPago()+"-"+AppState.listaenvios.get(i).getTamanoPaquete()+"-"+AppState.listaenvios.get(i).getNumPaquetes()+"-"+AppState.listaenvios.get(i).getFechaEnvio()+"-"+AppState.listaenvios.get(i).getTotalPago());                             
+                        }
+                        for (int k=0;k<AppState.listaenvios.size();k++){
+                            if (correocliente.equals(AppState.listaenvios.get(k).getCorreoCliente())==true ){   
+                                AppState.listaenvios.get(k).setContador(AppState.listaenvios.get(k).getContador()+contadorcliente);
+                            break;
+                            }
+                        } 
+    
+                        JOptionPane.showMessageDialog(null, "Pago Realizado Existosamente", "Compra En Línea", JOptionPane.INFORMATION_MESSAGE);
+                        
+                            codigoguiaTxt.setText(codigoguia());
+                            numfacturaTxt.setText(numfactura());
+                            direccion1Txt.setText(null);direccion2Txt.setText(null);npaquetes.setValue(1);tpequeno.setValue(1);tmediano.setValue(11);tgrande.setValue(51);
+                            grupotamaño.clearSelection();
+                            pagoBotones.clearSelection();
+                            servicioBotones.clearSelection();
+                            totalestandarTxt.setText(null);totalespecialTxt.setText(null); cvvTxt.setText(null);
+                            tpequeno.setEnabled(false);
+                            tmediano.setEnabled(false);
+                            tgrande.setEnabled(false);
+                            tarjetasCombo.setVisible(false);
+                            cvvTxt.setVisible(false);
+                            cvvLbl.setVisible(false);
+                            totalnetoTxt.setText(null);
+                            servicioLbl.setText("Servicio");
+                    }else if (pagoentrega.isSelected()==true && especialRB.isSelected()==true) { 
+                        tipopago = tipopago1;
+                        adddatoenvio.setCorreoCliente(correocliente);
+                        adddatoenvio.setCodigoPaq(codigopaq);
+                        adddatoenvio.setNumFactura(numfactura);
+                        adddatoenvio.setTipoServicio(tiposervicio2);
+                        adddatoenvio.setDestinatario(destinatario);
+                        adddatoenvio.setOrigen(origen);
+                        adddatoenvio.setDestino(destino);
+                        adddatoenvio.setNIT(NIT);
+                        adddatoenvio.setTipoPago(tipopago1);
+                        adddatoenvio.setTamanoPaquete(tamanopaq);
+                        adddatoenvio.setNumPaquetes(numpaquetes);
+                        adddatoenvio.setFechaEnvio(fechaenvio);
+                        adddatoenvio.setTotalPago(totalpago);
+                        AppState.listaenvios.add(adddatoenvio);
+                        for (int k=0;k<listaregiones.size();k++){
+                            if (regionCombo2.getSelectedItem().toString().equals(listaregiones.get(k).getCodigoR())==true){      
+                                listaregiones.get(k).setContadorRegion(listaregiones.get(k).getContadorRegion()+1);
+                                for(int i = 0; i< AppState.listaregiones.size(); i++){ 
+                                    System.out.println(AppState.listaregiones.get(i).getCodigoR()+"-"+AppState.listaregiones.get(i).getPrecioEst()+"-"+AppState.listaregiones.get(i).getPrecioEsp()+"-"+AppState.listaregiones.get(i).getContadorRegion());   
+                                }
+                                break;
+                            }
+                        } 
+                        for(int i = 0; i< AppState.listaenvios.size(); i++){ 
+                            System.out.println(AppState.listaenvios.get(i).getCorreoCliente()+"-"+AppState.listaenvios.get(i).getCodigoPaq()+"-"+AppState.listaenvios.get(i).getNumFactura()+"-"+AppState.listaenvios.get(i).getTipoServicio()+"-"+AppState.listaenvios.get(i).getDestinatario()+"-"+AppState.listaenvios.get(i).getOrigen()+"-"
+                            +AppState.listaenvios.get(i).getDestino()+"-"+AppState.listaenvios.get(i).getNIT()+"-"+AppState.listaenvios.get(i).getTipoPago()+"-"+AppState.listaenvios.get(i).getTamanoPaquete()+"-"+AppState.listaenvios.get(i).getNumPaquetes()+"-"+AppState.listaenvios.get(i).getFechaEnvio()+"-"+AppState.listaenvios.get(i).getTotalPago());   
+                            
+                           
+                        }
+                          for (int k=0;k<AppState.listaenvios.size();k++){
+                            if (correocliente.equals(AppState.listaenvios.get(k).getCorreoCliente())==true ){   
+                                AppState.listaenvios.get(k).setContador(AppState.listaenvios.get(k).getContador()+contadorcliente);
+                            break;
+                            }
+                        }
+                        JOptionPane.showMessageDialog(null, "Pago Realizado Existosamente", "Compra En Línea", JOptionPane.INFORMATION_MESSAGE);
+                            codigoguiaTxt.setText(codigoguia());
+                            numfacturaTxt.setText(numfactura());
+                            direccion1Txt.setText(null);direccion2Txt.setText(null);npaquetes.setValue(1);tpequeno.setValue(1);tmediano.setValue(11);tgrande.setValue(51);
+                            grupotamaño.clearSelection();
+                            pagoBotones.clearSelection();
+                            servicioBotones.clearSelection();
+                            totalestandarTxt.setText(null);totalespecialTxt.setText(null); cvvTxt.setText(null);
+                            tpequeno.setEnabled(false);
+                            tmediano.setEnabled(false);
+                            tgrande.setEnabled(false);
+                            tarjetasCombo.setVisible(false);
+                            cvvTxt.setVisible(false);
+                            cvvLbl.setVisible(false);
+                            totalnetoTxt.setText(null);
+                            servicioLbl.setText("Servicio");
+
+                    }else if (pagotarjeta.isSelected()==true && estandarRB.isSelected()==true ) {
+                        tipopago = tipopago2;
+                        adddatoenvio.setCorreoCliente(correocliente);
+                        adddatoenvio.setCodigoPaq(codigopaq);
+                        adddatoenvio.setNumFactura(numfactura);
+                        adddatoenvio.setTipoServicio(tiposervicio1);
+                        adddatoenvio.setDestinatario(destinatario);
+                        adddatoenvio.setOrigen(origen);
+                        adddatoenvio.setDestino(destino);
+                        adddatoenvio.setNIT(NIT);
+                        adddatoenvio.setTipoPago(tipopago2);
+                        adddatoenvio.setTamanoPaquete(tamanopaq);
+                        adddatoenvio.setNumPaquetes(numpaquetes);
+                        adddatoenvio.setFechaEnvio(fechaenvio);
+                        adddatoenvio.setTotalPago(totalpago);
+                        AppState.listaenvios.add(adddatoenvio);
+                        for (int k=0;k<listaregiones.size();k++){
+                            if (regionCombo2.getSelectedItem().toString().equals(listaregiones.get(k).getCodigoR())==true){      
+                                listaregiones.get(k).setContadorRegion(listaregiones.get(k).getContadorRegion()+1);
+                                for(int i = 0; i< AppState.listaregiones.size(); i++){ 
+                                    System.out.println(AppState.listaregiones.get(i).getCodigoR()+"-"+AppState.listaregiones.get(i).getPrecioEst()+"-"+AppState.listaregiones.get(i).getPrecioEsp()+"-"+AppState.listaregiones.get(i).getContadorRegion());   
+                                }
+                                break;
+                            }
+                        } 
+                        for(int i = 0; i< AppState.listaenvios.size(); i++){ 
+                            System.out.println(AppState.listaenvios.get(i).getCorreoCliente()+"-"+AppState.listaenvios.get(i).getCodigoPaq()+"-"+AppState.listaenvios.get(i).getNumFactura()+"-"+AppState.listaenvios.get(i).getTipoServicio()+"-"+AppState.listaenvios.get(i).getDestinatario()+"-"+AppState.listaenvios.get(i).getOrigen()+"-"
+                            +AppState.listaenvios.get(i).getDestino()+"-"+AppState.listaenvios.get(i).getNIT()+"-"+AppState.listaenvios.get(i).getTipoPago()+"-"+AppState.listaenvios.get(i).getTamanoPaquete()+"-"+AppState.listaenvios.get(i).getNumPaquetes()+"-"+AppState.listaenvios.get(i).getFechaEnvio()+"-"+AppState.listaenvios.get(i).getTotalPago());   
+                           
+                        }
+                          for (int k=0;k<AppState.listaenvios.size();k++){
+                            if (correocliente.equals(AppState.listaenvios.get(k).getCorreoCliente())==true ){ 
+                                AppState.listaenvios.get(k).setContador(AppState.listaenvios.get(k).getContador()+contadorcliente);
+                            break;
+                            }
+                        }
+                        JOptionPane.showMessageDialog(null, "Pago Realizado Existosamente", "Compra En Línea", JOptionPane.INFORMATION_MESSAGE);
+                            codigoguiaTxt.setText(codigoguia());
+                            numfacturaTxt.setText(numfactura());
+                            direccion1Txt.setText(null);direccion2Txt.setText(null);npaquetes.setValue(1);tpequeno.setValue(1);tmediano.setValue(11);tgrande.setValue(51);
+                            grupotamaño.clearSelection();
+                            pagoBotones.clearSelection();
+                            servicioBotones.clearSelection();
+                            totalestandarTxt.setText(null);totalespecialTxt.setText(null); cvvTxt.setText(null);
+                            tpequeno.setEnabled(false);
+                            tmediano.setEnabled(false);
+                            tgrande.setEnabled(false);
+                            tarjetasCombo.setVisible(false);
+                            cvvTxt.setVisible(false);
+                            cvvLbl.setVisible(false);
+                            totalnetoTxt.setText(null);
+                            servicioLbl.setText("Servicio");
+                    }else if (pagotarjeta.isSelected()==true && especialRB.isSelected()==true ) {
+                        tipopago = tipopago2;
+                        adddatoenvio.setCorreoCliente(correocliente);
+                        adddatoenvio.setCodigoPaq(codigopaq);
+                        adddatoenvio.setNumFactura(numfactura);
+                        adddatoenvio.setTipoServicio(tiposervicio2);
+                        adddatoenvio.setDestinatario(destinatario);
+                        adddatoenvio.setOrigen(origen);
+                        adddatoenvio.setDestino(destino);
+                        adddatoenvio.setNIT(NIT);
+                        adddatoenvio.setTipoPago(tipopago2);
+                        adddatoenvio.setTamanoPaquete(tamanopaq);
+                        adddatoenvio.setNumPaquetes(numpaquetes);
+                        adddatoenvio.setFechaEnvio(fechaenvio);
+                        adddatoenvio.setTotalPago(totalpago);
+                        AppState.listaenvios.add(adddatoenvio);
+                        for (int k=0;k<listaregiones.size();k++){
+                            if (regionCombo2.getSelectedItem().toString().equals(listaregiones.get(k).getCodigoR())==true){      
+                                listaregiones.get(k).setContadorRegion(listaregiones.get(k).getContadorRegion()+1);
+                                for(int i = 0; i< AppState.listaregiones.size(); i++){ 
+                                    System.out.println(AppState.listaregiones.get(i).getCodigoR()+"-"+AppState.listaregiones.get(i).getPrecioEst()+"-"+AppState.listaregiones.get(i).getPrecioEsp()+"-"+AppState.listaregiones.get(i).getContadorRegion());   
+                                }
+                                break;
+                            }
+                        } 
+                        for(int i = 0; i< AppState.listaenvios.size(); i++){ 
+                            System.out.println(AppState.listaenvios.get(i).getCorreoCliente()+"-"+AppState.listaenvios.get(i).getCodigoPaq()+"-"+AppState.listaenvios.get(i).getNumFactura()+"-"+AppState.listaenvios.get(i).getTipoServicio()+"-"+AppState.listaenvios.get(i).getDestinatario()+"-"+AppState.listaenvios.get(i).getOrigen()+"-"
+                            +AppState.listaenvios.get(i).getDestino()+"-"+AppState.listaenvios.get(i).getNIT()+"-"+AppState.listaenvios.get(i).getTipoPago()+"-"+AppState.listaenvios.get(i).getTamanoPaquete()+"-"+AppState.listaenvios.get(i).getNumPaquetes()+"-"+AppState.listaenvios.get(i).getFechaEnvio()+"-"+AppState.listaenvios.get(i).getTotalPago());   
+                           
+                        }
+                          for (int k=0;k<AppState.listaenvios.size();k++){
+                            if (correocliente.equals(AppState.listaenvios.get(k).getCorreoCliente())==true ){ 
+                                AppState.listaenvios.get(k).setContador(AppState.listaenvios.get(k).getContador()+contadorcliente);
+                            break;
+                            }
+                        }
+                        JOptionPane.showMessageDialog(null, "Pago Realizado Existosamente", "Compra En Línea", JOptionPane.INFORMATION_MESSAGE);
+                            codigoguiaTxt.setText(codigoguia());
+                            numfacturaTxt.setText(numfactura());
+                            direccion1Txt.setText(null);direccion2Txt.setText(null);npaquetes.setValue(1);tpequeno.setValue(1);tmediano.setValue(11);tgrande.setValue(51);
+                            grupotamaño.clearSelection();
+                            pagoBotones.clearSelection();
+                            servicioBotones.clearSelection();
+                            totalestandarTxt.setText(null);totalespecialTxt.setText(null); cvvTxt.setText(null);
+                            tpequeno.setEnabled(false);
+                            tmediano.setEnabled(false);
+                            tgrande.setEnabled(false);
+                            tarjetasCombo.setVisible(false);
+                            cvvTxt.setVisible(false);
+                            cvvLbl.setVisible(false);
+                            totalnetoTxt.setText(null);
+                            servicioLbl.setText("Servicio");
+                    }
+                }else if (medianoRBtn.isSelected()==true) {  
+                    tamanopaq = Long.parseLong(tmediano.getValue().toString());
+                    if (pagoentrega.isSelected()==true && estandarRB.isSelected()==true) {
+                        tipopago = tipopago1;
+                        adddatoenvio.setCorreoCliente(correocliente);
+                        adddatoenvio.setCodigoPaq(codigopaq);
+                        adddatoenvio.setNumFactura(numfactura);
+                        adddatoenvio.setTipoServicio(tiposervicio1);
+                        adddatoenvio.setDestinatario(destinatario);
+                        adddatoenvio.setOrigen(origen);
+                        adddatoenvio.setDestino(destino);
+                        adddatoenvio.setNIT(NIT);
+                        adddatoenvio.setTipoPago(tipopago1);
+                        adddatoenvio.setTamanoPaquete(tamanopaq);
+                        adddatoenvio.setNumPaquetes(numpaquetes);
+                        adddatoenvio.setFechaEnvio(fechaenvio);
+                        adddatoenvio.setTotalPago(totalpago);
+                        AppState.listaenvios.add(adddatoenvio);
+                        for (int k=0;k<listaregiones.size();k++){
+                            if (regionCombo2.getSelectedItem().toString().equals(listaregiones.get(k).getCodigoR())==true){      
+                                listaregiones.get(k).setContadorRegion(listaregiones.get(k).getContadorRegion()+1);
+                                for(int i = 0; i< AppState.listaregiones.size(); i++){ 
+                                    System.out.println(AppState.listaregiones.get(i).getCodigoR()+"-"+AppState.listaregiones.get(i).getPrecioEst()+"-"+AppState.listaregiones.get(i).getPrecioEsp()+"-"+AppState.listaregiones.get(i).getContadorRegion());   
+                                }
+                                break;
+                            }
+                        } 
+                        for(int i = 0; i< AppState.listaenvios.size(); i++){ 
+                            System.out.println(AppState.listaenvios.get(i).getCorreoCliente()+"-"+AppState.listaenvios.get(i).getCodigoPaq()+"-"+AppState.listaenvios.get(i).getNumFactura()+"-"+AppState.listaenvios.get(i).getTipoServicio()+"-"+AppState.listaenvios.get(i).getDestinatario()+"-"+AppState.listaenvios.get(i).getOrigen()+"-"
+                            +AppState.listaenvios.get(i).getDestino()+"-"+AppState.listaenvios.get(i).getNIT()+"-"+AppState.listaenvios.get(i).getTipoPago()+"-"+AppState.listaenvios.get(i).getTamanoPaquete()+"-"+AppState.listaenvios.get(i).getNumPaquetes()+"-"+AppState.listaenvios.get(i).getFechaEnvio()+"-"+AppState.listaenvios.get(i).getTotalPago());   
+                           
+                        }
+                          for (int k=0;k<AppState.listaenvios.size();k++){
+                            if (correocliente.equals(AppState.listaenvios.get(k).getCorreoCliente())==true ){ 
+                                AppState.listaenvios.get(k).setContador(AppState.listaenvios.get(k).getContador()+contadorcliente);
+                            break;
+                            }
+                        }
+                        JOptionPane.showMessageDialog(null, "Pago Realizado Existosamente", "Compra En Línea", JOptionPane.INFORMATION_MESSAGE);
+                            codigoguiaTxt.setText(codigoguia());
+                            numfacturaTxt.setText(numfactura());
+                            direccion1Txt.setText(null);direccion2Txt.setText(null);npaquetes.setValue(1);tpequeno.setValue(1);tmediano.setValue(11);tgrande.setValue(51);
+                            grupotamaño.clearSelection();
+                            pagoBotones.clearSelection();
+                            servicioBotones.clearSelection();
+                            totalestandarTxt.setText(null);totalespecialTxt.setText(null); cvvTxt.setText(null);
+                            tpequeno.setEnabled(false);
+                            tmediano.setEnabled(false);
+                            tgrande.setEnabled(false);
+                            tarjetasCombo.setVisible(false);
+                            cvvTxt.setVisible(false);
+                            cvvLbl.setVisible(false);
+                            totalnetoTxt.setText(null);
+                            servicioLbl.setText("Servicio");
+                    }else if (pagoentrega.isSelected()==true && especialRB.isSelected()==true) {
+                        tipopago = tipopago1;
+                        adddatoenvio.setCorreoCliente(correocliente);
+                        adddatoenvio.setCodigoPaq(codigopaq);
+                        adddatoenvio.setNumFactura(numfactura);
+                        adddatoenvio.setTipoServicio(tiposervicio2);
+                        adddatoenvio.setDestinatario(destinatario);
+                        adddatoenvio.setOrigen(origen);
+                        adddatoenvio.setDestino(destino);
+                        adddatoenvio.setNIT(NIT);
+                        adddatoenvio.setTipoPago(tipopago1);
+                        adddatoenvio.setTamanoPaquete(tamanopaq);
+                        adddatoenvio.setNumPaquetes(numpaquetes);
+                        adddatoenvio.setFechaEnvio(fechaenvio);
+                        adddatoenvio.setTotalPago(totalpago);
+                        AppState.listaenvios.add(adddatoenvio);
+                        for (int k=0;k<listaregiones.size();k++){
+                            if (regionCombo2.getSelectedItem().toString().equals(listaregiones.get(k).getCodigoR())==true){      
+                                listaregiones.get(k).setContadorRegion(listaregiones.get(k).getContadorRegion()+1);
+                                for(int i = 0; i< AppState.listaregiones.size(); i++){ 
+                                    System.out.println(AppState.listaregiones.get(i).getCodigoR()+"-"+AppState.listaregiones.get(i).getPrecioEst()+"-"+AppState.listaregiones.get(i).getPrecioEsp()+"-"+AppState.listaregiones.get(i).getContadorRegion());   
+                                }
+                                break;
+                            }
+                        } 
+                        for(int i = 0; i< AppState.listaenvios.size(); i++){ 
+                            System.out.println(AppState.listaenvios.get(i).getCorreoCliente()+"-"+AppState.listaenvios.get(i).getCodigoPaq()+"-"+AppState.listaenvios.get(i).getNumFactura()+"-"+AppState.listaenvios.get(i).getTipoServicio()+"-"+AppState.listaenvios.get(i).getDestinatario()+"-"+AppState.listaenvios.get(i).getOrigen()+"-"
+                            +AppState.listaenvios.get(i).getDestino()+"-"+AppState.listaenvios.get(i).getNIT()+"-"+AppState.listaenvios.get(i).getTipoPago()+"-"+AppState.listaenvios.get(i).getTamanoPaquete()+"-"+AppState.listaenvios.get(i).getNumPaquetes()+"-"+AppState.listaenvios.get(i).getFechaEnvio()+"-"+AppState.listaenvios.get(i).getTotalPago());   
+                        
+                        }
+                          for (int k=0;k<AppState.listaenvios.size();k++){
+                           if (correocliente.equals(AppState.listaenvios.get(k).getCorreoCliente())==true ){ 
+                                AppState.listaenvios.get(k).setContador(AppState.listaenvios.get(k).getContador()+contadorcliente);
+                            break;
+                            }
+                        }
+                        JOptionPane.showMessageDialog(null, "Pago Realizado Existosamente", "Compra En Línea", JOptionPane.INFORMATION_MESSAGE);
+                            codigoguiaTxt.setText(codigoguia());
+                            numfacturaTxt.setText(numfactura());
+                            direccion1Txt.setText(null);direccion2Txt.setText(null);npaquetes.setValue(1);tpequeno.setValue(1);tmediano.setValue(11);tgrande.setValue(51);
+                            grupotamaño.clearSelection();
+                            pagoBotones.clearSelection();
+                            servicioBotones.clearSelection();
+                            totalestandarTxt.setText(null);totalespecialTxt.setText(null); cvvTxt.setText(null);
+                            tpequeno.setEnabled(false);
+                            tmediano.setEnabled(false);
+                            tgrande.setEnabled(false);
+                            tarjetasCombo.setVisible(false);
+                            cvvTxt.setVisible(false);
+                            cvvLbl.setVisible(false);
+                            totalnetoTxt.setText(null);
+                            servicioLbl.setText("Servicio");
+
+                    }else if (pagotarjeta.isSelected()==true && estandarRB.isSelected()==true ) {
+                        tipopago = tipopago2;
+                        adddatoenvio.setCorreoCliente(correocliente);
+                        adddatoenvio.setCodigoPaq(codigopaq);
+                        adddatoenvio.setNumFactura(numfactura);
+                        adddatoenvio.setTipoServicio(tiposervicio1);
+                        adddatoenvio.setDestinatario(destinatario);
+                        adddatoenvio.setOrigen(origen);
+                        adddatoenvio.setDestino(destino);
+                        adddatoenvio.setNIT(NIT);
+                        adddatoenvio.setTipoPago(tipopago2);
+                        adddatoenvio.setTamanoPaquete(tamanopaq);
+                        adddatoenvio.setNumPaquetes(numpaquetes);
+                        adddatoenvio.setFechaEnvio(fechaenvio);
+                        adddatoenvio.setTotalPago(totalpago);
+                        AppState.listaenvios.add(adddatoenvio);
+                        for (int k=0;k<listaregiones.size();k++){
+                            if (regionCombo2.getSelectedItem().toString().equals(listaregiones.get(k).getCodigoR())==true){      
+                                listaregiones.get(k).setContadorRegion(listaregiones.get(k).getContadorRegion()+1);
+                                for(int i = 0; i< AppState.listaregiones.size(); i++){ 
+                                    System.out.println(AppState.listaregiones.get(i).getCodigoR()+"-"+AppState.listaregiones.get(i).getPrecioEst()+"-"+AppState.listaregiones.get(i).getPrecioEsp()+"-"+AppState.listaregiones.get(i).getContadorRegion());   
+                                }
+                                break;
+                            }
+                        } 
+                        for(int i = 0; i< AppState.listaenvios.size(); i++){ 
+                            System.out.println(AppState.listaenvios.get(i).getCorreoCliente()+"-"+AppState.listaenvios.get(i).getCodigoPaq()+"-"+AppState.listaenvios.get(i).getNumFactura()+"-"+AppState.listaenvios.get(i).getTipoServicio()+"-"+AppState.listaenvios.get(i).getDestinatario()+"-"+AppState.listaenvios.get(i).getOrigen()+"-"
+                            +AppState.listaenvios.get(i).getDestino()+"-"+AppState.listaenvios.get(i).getNIT()+"-"+AppState.listaenvios.get(i).getTipoPago()+"-"+AppState.listaenvios.get(i).getTamanoPaquete()+"-"+AppState.listaenvios.get(i).getNumPaquetes()+"-"+AppState.listaenvios.get(i).getFechaEnvio()+"-"+AppState.listaenvios.get(i).getTotalPago());   
+                            
+                        }
+                          for (int k=0;k<AppState.listaenvios.size();k++){
+                           if (correocliente.equals(AppState.listaenvios.get(k).getCorreoCliente())==true ){ 
+                                AppState.listaenvios.get(k).setContador(AppState.listaenvios.get(k).getContador()+contadorcliente);
+                            break;
+                            }
+                        }
+                        JOptionPane.showMessageDialog(null, "Pago Realizado Existosamente", "Compra En Línea", JOptionPane.INFORMATION_MESSAGE);
+                            codigoguiaTxt.setText(codigoguia());
+                            numfacturaTxt.setText(numfactura());
+                            direccion1Txt.setText(null);direccion2Txt.setText(null);npaquetes.setValue(1);tpequeno.setValue(1);tmediano.setValue(11);tgrande.setValue(51);
+                            grupotamaño.clearSelection();
+                            pagoBotones.clearSelection();
+                            servicioBotones.clearSelection();
+                            totalestandarTxt.setText(null);totalespecialTxt.setText(null); cvvTxt.setText(null);
+                            tpequeno.setEnabled(false);
+                            tmediano.setEnabled(false);
+                            tgrande.setEnabled(false);
+                            tarjetasCombo.setVisible(false);
+                            cvvTxt.setVisible(false);
+                            cvvLbl.setVisible(false);
+                            totalnetoTxt.setText(null);
+                            servicioLbl.setText("Servicio");
+                    }else if (pagotarjeta.isSelected()==true && especialRB.isSelected()==true ) {
+                        tipopago = tipopago2;
+                        adddatoenvio.setCorreoCliente(correocliente);
+                        adddatoenvio.setCodigoPaq(codigopaq);
+                        adddatoenvio.setNumFactura(numfactura);
+                        adddatoenvio.setTipoServicio(tiposervicio2);
+                        adddatoenvio.setDestinatario(destinatario);
+                        adddatoenvio.setOrigen(origen);
+                        adddatoenvio.setDestino(destino);
+                        adddatoenvio.setNIT(NIT);
+                        adddatoenvio.setTipoPago(tipopago2);
+                        adddatoenvio.setTamanoPaquete(tamanopaq);
+                        adddatoenvio.setNumPaquetes(numpaquetes);
+                        adddatoenvio.setFechaEnvio(fechaenvio);
+                        adddatoenvio.setTotalPago(totalpago);
+                        AppState.listaenvios.add(adddatoenvio);
+                        for (int k=0;k<listaregiones.size();k++){
+                            if (regionCombo2.getSelectedItem().toString().equals(listaregiones.get(k).getCodigoR())==true){      
+                                listaregiones.get(k).setContadorRegion(listaregiones.get(k).getContadorRegion()+1);
+                                for(int i = 0; i< AppState.listaregiones.size(); i++){ 
+                                    System.out.println(AppState.listaregiones.get(i).getCodigoR()+"-"+AppState.listaregiones.get(i).getPrecioEst()+"-"+AppState.listaregiones.get(i).getPrecioEsp()+"-"+AppState.listaregiones.get(i).getContadorRegion());   
+                                }
+                                break;
+                            }
+                        } 
+                        for(int i = 0; i< AppState.listaenvios.size(); i++){ 
+                            System.out.println(AppState.listaenvios.get(i).getCorreoCliente()+"-"+AppState.listaenvios.get(i).getCodigoPaq()+"-"+AppState.listaenvios.get(i).getNumFactura()+"-"+AppState.listaenvios.get(i).getTipoServicio()+"-"+AppState.listaenvios.get(i).getDestinatario()+"-"+AppState.listaenvios.get(i).getOrigen()+"-"
+                            +AppState.listaenvios.get(i).getDestino()+"-"+AppState.listaenvios.get(i).getNIT()+"-"+AppState.listaenvios.get(i).getTipoPago()+"-"+AppState.listaenvios.get(i).getTamanoPaquete()+"-"+AppState.listaenvios.get(i).getNumPaquetes()+"-"+AppState.listaenvios.get(i).getFechaEnvio()+"-"+AppState.listaenvios.get(i).getTotalPago());   
+                          
+                        }
+                          for (int k=0;k<AppState.listaenvios.size();k++){
+                           if (correocliente.equals(AppState.listaenvios.get(k).getCorreoCliente())==true ){ 
+                                AppState.listaenvios.get(k).setContador(AppState.listaenvios.get(k).getContador()+contadorcliente);
+                            break;
+                            }
+                        }
+                        JOptionPane.showMessageDialog(null, "Pago Realizado Existosamente", "Compra En Línea", JOptionPane.INFORMATION_MESSAGE);
+                            codigoguiaTxt.setText(codigoguia());
+                            numfacturaTxt.setText(numfactura());
+                            direccion1Txt.setText(null);direccion2Txt.setText(null);npaquetes.setValue(1);tpequeno.setValue(1);tmediano.setValue(11);tgrande.setValue(51);
+                            grupotamaño.clearSelection();
+                            pagoBotones.clearSelection();
+                            servicioBotones.clearSelection();
+                            totalestandarTxt.setText(null);totalespecialTxt.setText(null); cvvTxt.setText(null);
+                            tpequeno.setEnabled(false);
+                            tmediano.setEnabled(false);
+                            tgrande.setEnabled(false);
+                            tarjetasCombo.setVisible(false);
+                            cvvTxt.setVisible(false);
+                            cvvLbl.setVisible(false);
+                            totalnetoTxt.setText(null);
+                            servicioLbl.setText("Servicio");
+                    }
+                }else if (grandeRBtn.isSelected()==true) {  
+                    tamanopaq = Long.parseLong(tgrande.getValue().toString());
+                    if (pagoentrega.isSelected()==true && estandarRB.isSelected()==true) {  
+                        tipopago = tipopago1;
+                        adddatoenvio.setCorreoCliente(correocliente);
+                        adddatoenvio.setCodigoPaq(codigopaq);
+                        adddatoenvio.setNumFactura(numfactura);
+                        adddatoenvio.setTipoServicio(tiposervicio1);
+                        adddatoenvio.setDestinatario(destinatario);
+                        adddatoenvio.setOrigen(origen);
+                        adddatoenvio.setDestino(destino);
+                        adddatoenvio.setNIT(NIT);
+                        adddatoenvio.setTipoPago(tipopago1);
+                        adddatoenvio.setTamanoPaquete(tamanopaq);
+                        adddatoenvio.setNumPaquetes(numpaquetes);
+                        adddatoenvio.setFechaEnvio(fechaenvio);
+                        adddatoenvio.setTotalPago(totalpago);
+                        AppState.listaenvios.add(adddatoenvio);
+                        for (int k=0;k<listaregiones.size();k++){
+                            if (regionCombo2.getSelectedItem().toString().equals(listaregiones.get(k).getCodigoR())==true){      
+                                listaregiones.get(k).setContadorRegion(listaregiones.get(k).getContadorRegion()+1);
+                                for(int i = 0; i< AppState.listaregiones.size(); i++){ 
+                                    System.out.println(AppState.listaregiones.get(i).getCodigoR()+"-"+AppState.listaregiones.get(i).getPrecioEst()+"-"+AppState.listaregiones.get(i).getPrecioEsp()+"-"+AppState.listaregiones.get(i).getContadorRegion());   
+                                }
+                                break;
+                            }
+                        } 
+                        for(int i = 0; i< AppState.listaenvios.size(); i++){ 
+                            System.out.println(AppState.listaenvios.get(i).getCorreoCliente()+"-"+AppState.listaenvios.get(i).getCodigoPaq()+"-"+AppState.listaenvios.get(i).getNumFactura()+"-"+AppState.listaenvios.get(i).getTipoServicio()+"-"+AppState.listaenvios.get(i).getDestinatario()+"-"+AppState.listaenvios.get(i).getOrigen()+"-"
+                            +AppState.listaenvios.get(i).getDestino()+"-"+AppState.listaenvios.get(i).getNIT()+"-"+AppState.listaenvios.get(i).getTipoPago()+"-"+AppState.listaenvios.get(i).getTamanoPaquete()+"-"+AppState.listaenvios.get(i).getNumPaquetes()+"-"+AppState.listaenvios.get(i).getFechaEnvio()+"-"+AppState.listaenvios.get(i).getTotalPago());   
+                           
+                        }
+                          for (int k=0;k<AppState.listaenvios.size();k++){
+                           if (correocliente.equals(AppState.listaenvios.get(k).getCorreoCliente())==true ){ 
+                                AppState.listaenvios.get(k).setContador(AppState.listaenvios.get(k).getContador()+contadorcliente);
+                            break;
+                            }
+                        }
+                        JOptionPane.showMessageDialog(null, "Pago Realizado Existosamente", "Compra En Línea", JOptionPane.INFORMATION_MESSAGE);
+                            codigoguiaTxt.setText(codigoguia());
+                            numfacturaTxt.setText(numfactura());
+                            direccion1Txt.setText(null);direccion2Txt.setText(null);npaquetes.setValue(1);tpequeno.setValue(1);tmediano.setValue(11);tgrande.setValue(51);
+                            grupotamaño.clearSelection();
+                            pagoBotones.clearSelection();
+                            servicioBotones.clearSelection();
+                            totalestandarTxt.setText(null);totalespecialTxt.setText(null); cvvTxt.setText(null);
+                            tpequeno.setEnabled(false);
+                            tmediano.setEnabled(false);
+                            tgrande.setEnabled(false);
+                            tarjetasCombo.setVisible(false);
+                            cvvTxt.setVisible(false);
+                            cvvLbl.setVisible(false);
+                            totalnetoTxt.setText(null);
+                            servicioLbl.setText("Servicio");
+                    }else if (pagoentrega.isSelected()==true && especialRB.isSelected()==true) { 
+                        tipopago = tipopago1;
+                        adddatoenvio.setCorreoCliente(correocliente);
+                        adddatoenvio.setCodigoPaq(codigopaq);
+                        adddatoenvio.setNumFactura(numfactura);
+                        adddatoenvio.setTipoServicio(tiposervicio2);
+                        adddatoenvio.setDestinatario(destinatario);
+                        adddatoenvio.setOrigen(origen);
+                        adddatoenvio.setDestino(destino);
+                        adddatoenvio.setNIT(NIT);
+                        adddatoenvio.setTipoPago(tipopago1);
+                        adddatoenvio.setTamanoPaquete(tamanopaq);
+                        adddatoenvio.setNumPaquetes(numpaquetes);
+                        adddatoenvio.setFechaEnvio(fechaenvio);
+                        adddatoenvio.setTotalPago(totalpago);
+                        AppState.listaenvios.add(adddatoenvio);
+                        for (int k=0;k<listaregiones.size();k++){
+                            if (regionCombo2.getSelectedItem().toString().equals(listaregiones.get(k).getCodigoR())==true){      
+                                listaregiones.get(k).setContadorRegion(listaregiones.get(k).getContadorRegion()+1);
+                                for(int i = 0; i< AppState.listaregiones.size(); i++){ 
+                                    System.out.println(AppState.listaregiones.get(i).getCodigoR()+"-"+AppState.listaregiones.get(i).getPrecioEst()+"-"+AppState.listaregiones.get(i).getPrecioEsp()+"-"+AppState.listaregiones.get(i).getContadorRegion());   
+                                }
+                                break;
+                            }
+                        } 
+                        for(int i = 0; i< AppState.listaenvios.size(); i++){ 
+                            System.out.println(AppState.listaenvios.get(i).getCorreoCliente()+"-"+AppState.listaenvios.get(i).getCodigoPaq()+"-"+AppState.listaenvios.get(i).getNumFactura()+"-"+AppState.listaenvios.get(i).getTipoServicio()+"-"+AppState.listaenvios.get(i).getDestinatario()+"-"+AppState.listaenvios.get(i).getOrigen()+"-"
+                            +AppState.listaenvios.get(i).getDestino()+"-"+AppState.listaenvios.get(i).getNIT()+"-"+AppState.listaenvios.get(i).getTipoPago()+"-"+AppState.listaenvios.get(i).getTamanoPaquete()+"-"+AppState.listaenvios.get(i).getNumPaquetes()+"-"+AppState.listaenvios.get(i).getFechaEnvio()+"-"+AppState.listaenvios.get(i).getTotalPago());   
+                           
+                        }
+                          for (int k=0;k<AppState.listaenvios.size();k++){
+                           if (correocliente.equals(AppState.listaenvios.get(k).getCorreoCliente())==true ){  
+                                AppState.listaenvios.get(k).setContador(AppState.listaenvios.get(k).getContador()+contadorcliente);
+                            break;
+                            }
+                        }
+                        JOptionPane.showMessageDialog(null, "Pago Realizado Existosamente", "Compra En Línea", JOptionPane.INFORMATION_MESSAGE);
+                            codigoguiaTxt.setText(codigoguia());
+                            numfacturaTxt.setText(numfactura());
+                            direccion1Txt.setText(null);direccion2Txt.setText(null);npaquetes.setValue(1);tpequeno.setValue(1);tmediano.setValue(11);tgrande.setValue(51);
+                            grupotamaño.clearSelection();
+                            pagoBotones.clearSelection();
+                            servicioBotones.clearSelection();
+                            totalestandarTxt.setText(null);totalespecialTxt.setText(null); cvvTxt.setText(null);
+                            tpequeno.setEnabled(false);
+                            tmediano.setEnabled(false);
+                            tgrande.setEnabled(false);
+                            tarjetasCombo.setVisible(false);
+                            cvvTxt.setVisible(false);
+                            cvvLbl.setVisible(false);
+                            totalnetoTxt.setText(null);
+                            servicioLbl.setText("Servicio");
+
+                    }else if (pagotarjeta.isSelected()==true && estandarRB.isSelected()==true ) {
+                        tipopago = tipopago2;
+                        adddatoenvio.setCorreoCliente(correocliente);
+                        adddatoenvio.setCodigoPaq(codigopaq);
+                        adddatoenvio.setNumFactura(numfactura);
+                        adddatoenvio.setTipoServicio(tiposervicio1);
+                        adddatoenvio.setDestinatario(destinatario);
+                        adddatoenvio.setOrigen(origen);
+                        adddatoenvio.setDestino(destino);
+                        adddatoenvio.setNIT(NIT);
+                        adddatoenvio.setTipoPago(tipopago2);
+                        adddatoenvio.setTamanoPaquete(tamanopaq);
+                        adddatoenvio.setNumPaquetes(numpaquetes);
+                        adddatoenvio.setFechaEnvio(fechaenvio);
+                        adddatoenvio.setTotalPago(totalpago);
+                        AppState.listaenvios.add(adddatoenvio);
+                        for (int k=0;k<listaregiones.size();k++){
+                            if (regionCombo2.getSelectedItem().toString().equals(listaregiones.get(k).getCodigoR())==true){      
+                                listaregiones.get(k).setContadorRegion(listaregiones.get(k).getContadorRegion()+1);
+                                for(int i = 0; i< AppState.listaregiones.size(); i++){ 
+                                    System.out.println(AppState.listaregiones.get(i).getCodigoR()+"-"+AppState.listaregiones.get(i).getPrecioEst()+"-"+AppState.listaregiones.get(i).getPrecioEsp()+"-"+AppState.listaregiones.get(i).getContadorRegion());   
+                                }
+                                break;
+                            }
+                        } 
+                        for(int i = 0; i< AppState.listaenvios.size(); i++){ 
+                            System.out.println(AppState.listaenvios.get(i).getCorreoCliente()+"-"+AppState.listaenvios.get(i).getCodigoPaq()+"-"+AppState.listaenvios.get(i).getNumFactura()+"-"+AppState.listaenvios.get(i).getTipoServicio()+"-"+AppState.listaenvios.get(i).getDestinatario()+"-"+AppState.listaenvios.get(i).getOrigen()+"-"
+                            +AppState.listaenvios.get(i).getDestino()+"-"+AppState.listaenvios.get(i).getNIT()+"-"+AppState.listaenvios.get(i).getTipoPago()+"-"+AppState.listaenvios.get(i).getTamanoPaquete()+"-"+AppState.listaenvios.get(i).getNumPaquetes()+"-"+AppState.listaenvios.get(i).getFechaEnvio()+"-"+AppState.listaenvios.get(i).getTotalPago());   
+                            
+                        }
+                          for (int k=0;k<AppState.listaenvios.size();k++){
+                           if (correocliente.equals(AppState.listaenvios.get(k).getCorreoCliente())==true ){ 
+                                AppState.listaenvios.get(k).setContador(AppState.listaenvios.get(k).getContador()+contadorcliente);
+                            break;
+                            }
+                        }
+                        JOptionPane.showMessageDialog(null, "Pago Realizado Existosamente", "Compra En Línea", JOptionPane.INFORMATION_MESSAGE);
+                            codigoguiaTxt.setText(codigoguia());
+                            numfacturaTxt.setText(numfactura());
+                            direccion1Txt.setText(null);direccion2Txt.setText(null);npaquetes.setValue(1);tpequeno.setValue(1);tmediano.setValue(11);tgrande.setValue(51);
+                            grupotamaño.clearSelection();
+                            pagoBotones.clearSelection();
+                            servicioBotones.clearSelection();
+                            totalestandarTxt.setText(null);totalespecialTxt.setText(null); cvvTxt.setText(null);
+                            tpequeno.setEnabled(false);
+                            tmediano.setEnabled(false);
+                            tgrande.setEnabled(false);
+                            tarjetasCombo.setVisible(false);
+                            cvvTxt.setVisible(false);
+                            cvvLbl.setVisible(false);
+                            totalnetoTxt.setText(null);
+                            servicioLbl.setText("Servicio");
+                    }else if (pagotarjeta.isSelected()==true && especialRB.isSelected()==true ) {
+                        tipopago = tipopago2;
+                        adddatoenvio.setCorreoCliente(correocliente);
+                        adddatoenvio.setCodigoPaq(codigopaq);
+                        adddatoenvio.setNumFactura(numfactura);
+                        adddatoenvio.setTipoServicio(tiposervicio2);
+                        adddatoenvio.setDestinatario(destinatario);
+                        adddatoenvio.setOrigen(origen);
+                        adddatoenvio.setDestino(destino);
+                        adddatoenvio.setNIT(NIT);
+                        adddatoenvio.setTipoPago(tipopago2);
+                        adddatoenvio.setTamanoPaquete(tamanopaq);
+                        adddatoenvio.setNumPaquetes(numpaquetes);
+                        adddatoenvio.setFechaEnvio(fechaenvio);
+                        adddatoenvio.setTotalPago(totalpago);
+                        AppState.listaenvios.add(adddatoenvio);
+                        for (int k=0;k<listaregiones.size();k++){
+                            if (regionCombo2.getSelectedItem().toString().equals(listaregiones.get(k).getCodigoR())==true){      
+                                listaregiones.get(k).setContadorRegion(listaregiones.get(k).getContadorRegion()+1);
+                                for(int i = 0; i< AppState.listaregiones.size(); i++){ 
+                                    System.out.println(AppState.listaregiones.get(i).getCodigoR()+"-"+AppState.listaregiones.get(i).getPrecioEst()+"-"+AppState.listaregiones.get(i).getPrecioEsp()+"-"+AppState.listaregiones.get(i).getContadorRegion());   
+                                }
+                                break;
+                            }
+                        } 
+                        for(int i = 0; i< AppState.listaenvios.size(); i++){ 
+                            System.out.println(AppState.listaenvios.get(i).getCorreoCliente()+"-"+AppState.listaenvios.get(i).getCodigoPaq()+"-"+AppState.listaenvios.get(i).getNumFactura()+"-"+AppState.listaenvios.get(i).getTipoServicio()+"-"+AppState.listaenvios.get(i).getDestinatario()+"-"+AppState.listaenvios.get(i).getOrigen()+"-"
+                            +AppState.listaenvios.get(i).getDestino()+"-"+AppState.listaenvios.get(i).getNIT()+"-"+AppState.listaenvios.get(i).getTipoPago()+"-"+AppState.listaenvios.get(i).getTamanoPaquete()+"-"+AppState.listaenvios.get(i).getNumPaquetes()+"-"+AppState.listaenvios.get(i).getFechaEnvio()+"-"+AppState.listaenvios.get(i).getTotalPago());   
+                            
+                        }
+                          for (int k=0;k<AppState.listaenvios.size();k++){
+                           if (correocliente.equals(AppState.listaenvios.get(k).getCorreoCliente())==true ){ 
+                                AppState.listaenvios.get(k).setContador(AppState.listaenvios.get(k).getContador()+contadorcliente);
+                            break;
+                            }
+                        }
+                        JOptionPane.showMessageDialog(null, "Pago Realizado Existosamente", "Compra En Línea", JOptionPane.INFORMATION_MESSAGE);
+                            codigoguiaTxt.setText(codigoguia());
+                            numfacturaTxt.setText(numfactura());
+                            direccion1Txt.setText(null);direccion2Txt.setText(null);npaquetes.setValue(1);tpequeno.setValue(1);tmediano.setValue(11);tgrande.setValue(51);
+                            grupotamaño.clearSelection();
+                            pagoBotones.clearSelection();
+                            servicioBotones.clearSelection();
+                            totalestandarTxt.setText(null);totalespecialTxt.setText(null); cvvTxt.setText(null);
+                            tpequeno.setEnabled(false);
+                            tmediano.setEnabled(false);
+                            tgrande.setEnabled(false);
+                            tarjetasCombo.setVisible(false);
+                            cvvTxt.setVisible(false);
+                            cvvLbl.setVisible(false);
+                            totalnetoTxt.setText(null);
+                            servicioLbl.setText("Servicio");
+                    }
+                }
+                
+               
+                
+            }
+        }
+            
+        
+    }//GEN-LAST:event_realizarpagoBtnActionPerformed
+
+    private void FacturaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FacturaBtnActionPerformed
+        // TODO add your handling code here:
+        String[][] filas = {{String.valueOf(numpaquetes),String.valueOf(tamanopaq), String.valueOf(totalpago)}};
+        String[] Encabezado = {"Número De Paquetes","Tamaño Del Paquete", "Total De Pago"};
+        String NoFactura = numfactura;
+        String CodePaquete = codigopaq;
+        String Origen = origen;
+        String Destino = destino;
+        String NIT2 = NIT;
+        String Nombre = destinatario;
+        String TipoPago = tipopago;
+        
+        String tablaHtml = generatetablaHtml(NoFactura,CodePaquete,Origen,Destino,NIT2,Nombre,TipoPago,Encabezado, filas);
+        // Crea la carpeta de reportes si no esiste
+        File carpeta = new File("C:/Users/josse/Downloads/");
+        if (!carpeta.exists()) {
+            carpeta.mkdirs();
+        }
+
+        // Escribe el archivo .html dentro de la carpeta
+        try {
+            FileWriter fileWriter = new FileWriter("C:/Users/josse/Downloads/FACTURAELECTRÓNICA"+numfactura+".html");
+            fileWriter.write(tablaHtml);
+            fileWriter.close();
+             JOptionPane.showMessageDialog(null, "FACTURA DESCARGADA CORRECTAMENTE", "Factura Electrónica", JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }        
+    }//GEN-LAST:event_FacturaBtnActionPerformed
+
+    private void guiaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guiaBtnActionPerformed
+        // TODO add your handling code here:
+        
+        String[] Encabezado = {"Número De Paquetes","Tamaño Del Paquete", "Total De Pago"};
+        String CodePaquete = codigopaq;
+        String Origen = origen;
+        String Destino = destino;
+        String destinatario1 = destinatario;
+        String TipoPago = tipopago;
+        String tamaño = String.valueOf(tamanopaq);
+        String numeropaq = String.valueOf(numpaquetes);
+        String fecha = fechaenvio;
+        String totalpagar = String.valueOf(totalpago);
+        
+        String tablaHtml = generatetablaHtm2(CodePaquete,Origen,Destino,destinatario1,TipoPago,tamaño,numeropaq,fecha,totalpagar,Encabezado);
+        // Crea la carpeta de reportes si no esiste
+        File carpeta = new File("C:/Users/josse/Downloads/");
+        if (!carpeta.exists()) {
+            carpeta.mkdirs();
+        }
+
+        // Escribe el archivo .html dentro de la carpeta
+        try {
+            FileWriter fileWriter = new FileWriter("C:/Users/josse/Downloads/GUÍAELECRÓNICA"+codigopaq+".html");
+            fileWriter.write(tablaHtml);
+            fileWriter.close();
+             JOptionPane.showMessageDialog(null, "GUÍA DESCARGADA CORRECTAMENTE", "Guía Electrónica", JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }   
+    }//GEN-LAST:event_guiaBtnActionPerformed
+
+    private void cotizacionBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cotizacionBtnActionPerformed
+        // TODO add your handling code here:
+        String[] Encabezado = {"Número De Paquetes","Tamaño Del Paquete", "Total De Pago"};
+        String Origen = (deptoCombo1.getSelectedItem().toString() + ", " + municipioCombo1.getSelectedItem().toString()+". "+direccion1Txt.getText());
+        String Destino =(deptoCombo2.getSelectedItem().toString() + ", " + municipioCombo2.getSelectedItem().toString()+". "+direccion2Txt.getText());
+        String numeropaq = npaquetes.getValue().toString();
+        String estandar =  totalestandarTxt.getText();
+        String especial =  totalespecialTxt.getText();
+        
+        if(pequeRBtn.isSelected()==true){
+            tamanopaq= Long.parseLong(tpequeno.getValue().toString());
+        }else if(medianoRBtn.isSelected()==true){
+            tamanopaq= Long.parseLong(tmediano.getValue().toString());
+        }else if(grandeRBtn.isSelected()==true){
+            tamanopaq= Long.parseLong(tgrande.getValue().toString());
+        }
+   
+        String tamanoPaquete1 = String.valueOf(tamanopaq);
+        
+        String tablaHtml = generatetablaHtm3(Origen,Destino,numeropaq,tamanoPaquete1,estandar,especial,Encabezado);
+        // Crea la carpeta de reportes si no esiste
+        File carpeta = new File("C:/Users/josse/Downloads/");
+        if (!carpeta.exists()) {
+            carpeta.mkdirs();
+        }
+
+        // Escribe el archivo .html dentro de la carpeta
+        try {
+            FileWriter fileWriter = new FileWriter("C:/Users/josse/Downloads/COTIZACIÓN"+estandar+especial+".html");
+            fileWriter.write(tablaHtml);
+            fileWriter.close();
+             JOptionPane.showMessageDialog(null, "COTIZACIÓN DESCARGADA CORRECTAMENTE", "Cotización Electrónica", JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }   
+    }//GEN-LAST:event_cotizacionBtnActionPerformed
+    public static String generatetablaHtm2(String CodePaquete,String Origen,String Destino,String destinatario1,String TipoPago,String tamaño,String numeropaq,String fecha,String totalpagar, String[] Encabezado) {
+        StringBuilder sb = new StringBuilder();
+        //DATOS PERSONALES
+
+        sb.append("<DIV style=\"margin:50px\">");
+        sb.append("<font font face=\"monospace\">");
+        sb.append("<h3>").append("Código de Paquete: "+CodePaquete).append("</h3>");
+        sb.append("<h3>").append("Origen: "+Origen).append("</h3>");
+        sb.append("<h3>").append("Destino: "+Destino).append("</h3>");
+         sb.append("<h3>").append("Destinatario: "+destinatario1).append("</h3>");
+        sb.append("<h3>").append("Tipo de Pago: "+TipoPago).append("</h3>");
+        sb.append("<h3>").append("Tamaño del Paquete: "+tamaño+ " lb").append("</h3>");
+        sb.append("<h3>").append("Numero de Paquetes: "+numeropaq).append("</h3>");
+        sb.append("<h3>").append("Fecha de envío: "+fecha).append("</h3>");
+        sb.append("<h3>").append("Total a pagar: "+totalpagar).append("</h3>");
+        sb.append("<img src=\" https://www.seekpng.com/png/full/135-1351144_codigo-de-barras-png-pattern.png \" width=\"650\" height=\"200\">");
+        sb.append("</font>");
+        sb.append("</DIV>");
+ 
+        return sb.toString();
+    }
+    public static String generatetablaHtm3(String Origen,String Destino,String numeropaq, String tamanoPaquete1,String estandar,String especial, String[] Encabezado) {
+        StringBuilder sb = new StringBuilder();
+        //DATOS PERSONALES
+
+        sb.append("<DIV style=\"margin:50px\">");
+        sb.append("<font font face=\"monospace\">");
+        sb.append("<h3>").append("Origen: "+Origen).append("</h3>");
+        sb.append("<h3>").append("Destino: "+Destino).append("</h3>");
+        sb.append("<h3>").append("Numero de Paquetes: "+numeropaq).append("</h3>");
+        sb.append("<h3>").append("Tamaño del Paquete: "+tamanoPaquete1+ " lb").append("</h3>");
+        
+        sb.append("<h3>").append("Servicio Estándar: "+estandar).append("</h3>");
+        sb.append("<h3>").append("Servicio Especial: "+especial).append("</h3>");
+        sb.append("<img src=\" https://cdn-icons-png.flaticon.com/512/7164/7164922.png \" width=\"180\" height=\"180\">");
+        sb.append("</font>");
+        sb.append("</DIV>");
+ 
+        return sb.toString();
+    }
+    
+    public static String generatetablaHtml(String NoFactura,String CodePaquete,String Origen, String Destino, String NIT2,String Nombre, String TipoPago, String[] Encabezado, String[][] filas) {
+        StringBuilder sb = new StringBuilder();
+        //DATOS PERSONALES
+
+        sb.append("<DIV style=\"margin:50px\">");
+        sb.append("<font font face=\"monospace\">");
+        sb.append("<h3>").append("No. Factura: "+NoFactura).append("</h3>");
+        sb.append("<h3>").append("Código de Paquete: "+CodePaquete).append("</h3>");
+        sb.append("<h3>").append("Nombre: "+Nombre).append("</h3>");
+        sb.append("<h3>").append("Origen: "+Origen).append("</h3>");
+        sb.append("<h3>").append("Destino: "+Destino).append("</h3>");
+        sb.append("<h3>").append("NIT: "+NIT2).append("</h3>");
+        sb.append("<h3>").append("Tipo de Pago: "+TipoPago).append("</h3>");
+        // SE CREA LA TABLA
+        sb.append("<table border=\"1\">\n");
+        // Se agregan los encabezados de la tabla
+        sb.append("<tr>");
+        for (String encabezado : Encabezado) {
+            sb.append("<th>").append(encabezado).append("</th>");
+        }
+        sb.append("</tr>\n");
+
+        // Se agregan las fialas a la tabla
+        for (String[] fila : filas) {
+            sb.append("<tr>");
+            for (String casilla : fila) {
+                sb.append("<td>").append(casilla).append("</td>");
+            }
+            sb.append("</tr>\n");
+        }
+        // Se cierra la etiqueta d ela tabla
+        sb.append("</table>\n");
+        sb.append("</font>");
+        sb.append("</DIV>");
+ 
+        return sb.toString();
+    }
+    
+    
+    public String[] getMetropolitana(String region1){ 
+        String[] listadepartamentos1 = new String[4];
+        if(region1.equalsIgnoreCase("(M) Metropolitana")){
+            listadepartamentos1[0]="Guatemala";
+            listadepartamentos1[1]="Escuintla";
+            listadepartamentos1[2]="Chimaltenango";
+            listadepartamentos1[3]="Sacatepéquez";
+        }
+        return listadepartamentos1;
+    }
+    public String[] getNorte(String region2){ 
+        String[] listadepartamentos2 = new String[3];
+        if(region2.equalsIgnoreCase("(NT) Norte")){
+            listadepartamentos2[0]="Baja Verapaz";
+            listadepartamentos2[1]="Alta Verapaz";
+            listadepartamentos2[2]="Petén";
+        }
+        return listadepartamentos2;
+    }
+    public String[] getNororiente(String region3){ 
+        String[] listadepartamentos3 = new String[4];
+        if(region3.equalsIgnoreCase("(NO) Nororiente")){
+             listadepartamentos3[0]="Chiquimula";
+             listadepartamentos3[1]="El Progreso";
+             listadepartamentos3[2]="Izabal";
+             listadepartamentos3[3]="Zacapa";
+        }
+        return listadepartamentos3;
+    }
+    public String[] getSuroriente(String region4){ 
+        String[] listadepartamentos4 = new String[3];
+        if(region4.equalsIgnoreCase("(SO) Suroriente")){
+              listadepartamentos4[0]="Jutiapa";
+             listadepartamentos4[1]="Jalapa";
+             listadepartamentos4[2]="Santa Rosa";
+        }
+        return listadepartamentos4;
+    }
+    public String[] getNoroccidente(String region5){ 
+        String[] listadepartamentos5 = new String[2];
+        if(region5.equalsIgnoreCase("(NOC) Noroccidente")){
+            listadepartamentos5[0]="Huehuetenango";
+            listadepartamentos5[1]="Quiché";
+             
+        }
+        return listadepartamentos5;
+    }
+    public String[] getSuroccidente(String region6){ 
+        String[] listadepartamentos6 = new String[6];
+        if(region6.equalsIgnoreCase("(SOC) Suroccidente")){
+             listadepartamentos6[0]="Quetzaltenango";
+             listadepartamentos6[1]="Retalhuleu";
+             listadepartamentos6[2]="San Marcos";
+             listadepartamentos6[3]="Suchitepéquez";
+             listadepartamentos6[4]="Sololá";
+             listadepartamentos6[5]="Totonicapán";
+        }
+        return listadepartamentos6;
+    }
     /**
      * @param args the command line arguments
      */
@@ -356,13 +2538,22 @@ public class CotizaciónFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton FacturaBtn;
+    private javax.swing.JTextField codigoguiaTxt;
+    private javax.swing.JButton cotizacionBtn;
+    private javax.swing.JLabel cvvLbl;
+    private javax.swing.JTextField cvvTxt;
+    private javax.swing.JComboBox<String> deptoCombo1;
+    private javax.swing.JComboBox<String> deptoCombo2;
+    private javax.swing.JTextField direccion1Txt;
+    private javax.swing.JTextField direccion2Txt;
+    private javax.swing.JRadioButton especialRB;
+    private javax.swing.JRadioButton estandarRB;
+    private javax.swing.JRadioButton grandeRBtn;
+    private javax.swing.ButtonGroup grupotamaño;
+    private javax.swing.JButton guiaBtn;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -373,7 +2564,12 @@ public class CotizaciónFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -381,17 +2577,28 @@ public class CotizaciónFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JRadioButton jRadioButton5;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JRadioButton medianoRBtn;
+    private javax.swing.JComboBox<String> municipioCombo1;
+    private javax.swing.JComboBox<String> municipioCombo2;
+    private javax.swing.JComboBox<String> nombrefactCombo;
+    private javax.swing.JSpinner npaquetes;
+    private javax.swing.JTextField numfacturaTxt;
+    private javax.swing.ButtonGroup pagoBotones;
+    private javax.swing.JRadioButton pagoentrega;
+    private javax.swing.JRadioButton pagotarjeta;
+    private javax.swing.JRadioButton pequeRBtn;
+    private javax.swing.JButton realizarpagoBtn;
+    public static javax.swing.JTextField recibecorreo3Txt;
+    private javax.swing.JComboBox<String> regionCombo1;
+    private javax.swing.JComboBox<String> regionCombo2;
+    private javax.swing.ButtonGroup servicioBotones;
+    private javax.swing.JLabel servicioLbl;
+    private javax.swing.JComboBox<String> tarjetasCombo;
+    private javax.swing.JSpinner tgrande;
+    private javax.swing.JSpinner tmediano;
+    private javax.swing.JTextField totalespecialTxt;
+    private javax.swing.JTextField totalestandarTxt;
+    private javax.swing.JTextField totalnetoTxt;
+    private javax.swing.JSpinner tpequeno;
     // End of variables declaration//GEN-END:variables
 }

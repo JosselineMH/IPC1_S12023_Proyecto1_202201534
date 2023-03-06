@@ -4,6 +4,8 @@
  */
 package com.mycompany.proyecto1;
 
+import javax.swing.*;
+
 /**
  *
  * @author josse
@@ -18,6 +20,9 @@ public class TajetaFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         setTitle("REGISTRO DE TARJETAS");
+        
+        recibecorreo1Txt.setVisible(false);
+        
     }
 
     /**
@@ -31,15 +36,16 @@ public class TajetaFrame extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        nombreTxt = new javax.swing.JTextField();
+        numeroTxt = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        fechaTxt = new javax.swing.JTextField();
+        cvvTxt = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        recibecorreo1Txt = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,7 +58,12 @@ public class TajetaFrame extends javax.swing.JFrame {
 
         jLabel4.setText("Fecha de Vencimiento");
 
-        jTextField3.setText("MM/AA");
+        fechaTxt.setText("MM/AA");
+        fechaTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fechaTxtActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("CVV");
 
@@ -60,6 +71,11 @@ public class TajetaFrame extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton1.setText("REGISTRAR TARJETA");
         jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 204, 255)));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setBackground(new java.awt.Color(102, 204, 255));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -83,20 +99,20 @@ public class TajetaFrame extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(13, 13, 13)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel3)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(numeroTxt)
+                            .addComponent(nombreTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
                             .addComponent(jLabel2)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(recibecorreo1Txt))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel4)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(fechaTxt, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(cvvTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel5))
                         .addGap(57, 57, 57))))
         );
@@ -110,21 +126,23 @@ public class TajetaFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(nombreTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(19, 19, 19)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(numeroTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(fechaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cvvTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(recibecorreo1Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26))
@@ -137,8 +155,53 @@ public class TajetaFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         MenuUsuario menuus = new MenuUsuario();
         menuus.setVisible(true);
+        String datocorreo = recibecorreo1Txt.getText();
+        menuus.recibecorreoTxt.setText(datocorreo);
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void fechaTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechaTxtActionPerformed
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_fechaTxtActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String correoT= recibecorreo1Txt.getText();
+        String nombreT = nombreTxt.getText();
+        String fechaT = fechaTxt.getText();
+
+        Tarjeta addtarjeta = new Tarjeta();
+        if(recibecorreo1Txt.getText().isEmpty() || nombreTxt.getText().isEmpty() || fechaTxt.getText().isEmpty() || cvvTxt.getText().isEmpty() || numeroTxt.getText().isEmpty() ){
+            JOptionPane.showMessageDialog(null, "Debe llenar todos los campos", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
+        }else{
+            int counterror=0;
+            long numeroT = Long.parseLong(numeroTxt.getText());
+            for (int k=0;k<AppState.listatarjetas.size();k++){
+                if (numeroT == AppState.listatarjetas.get(k).getNumeroT() && correoT.equals(AppState.listatarjetas.get(k).getPropietarioT())==true){      
+                    counterror++;
+                    break;
+                }
+            }
+            if (counterror==0){
+            
+            addtarjeta.setPropietarioT(correoT);
+            addtarjeta.setNombreT(nombreT);
+            addtarjeta.setNumeroT(numeroT);
+            addtarjeta.setFechaT(fechaT);
+            AppState.listatarjetas.add(addtarjeta);
+                for(int i = 0; i< AppState.listatarjetas.size(); i++){ 
+                    System.out.println(AppState.listatarjetas.get(i).getPropietarioT()+"-"+AppState.listatarjetas.get(i).getNombreT()+"-"+AppState.listatarjetas.get(i).getNumeroT()+"-"+AppState.listatarjetas.get(i).getFechaT());   
+                }
+                JOptionPane.showMessageDialog(null, "Tarjeta Registrada Existosamente", "Registro de Tarjetas", JOptionPane.INFORMATION_MESSAGE);
+                nombreTxt.setText(null);numeroTxt.setText(null);fechaTxt.setText(null); cvvTxt.setText(null);
+                
+                
+            }else{
+                     JOptionPane.showMessageDialog(null, "Este número de Tarjeta ya se encuentra asociada a su Usuario: "+correoT, "Tarjeta Asociada", JOptionPane.WARNING_MESSAGE);
+                }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -176,6 +239,8 @@ public class TajetaFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField cvvTxt;
+    private javax.swing.JTextField fechaTxt;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -183,9 +248,8 @@ public class TajetaFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField nombreTxt;
+    private javax.swing.JTextField numeroTxt;
+    public static javax.swing.JTextField recibecorreo1Txt;
     // End of variables declaration//GEN-END:variables
 }

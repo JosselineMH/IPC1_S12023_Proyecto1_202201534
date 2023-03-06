@@ -186,16 +186,16 @@ public class RegionesPreciosFrame extends javax.swing.JFrame {
             double estandar= Double.parseDouble(estandarTxt.getText());
             double especial= Double.parseDouble(especialTxt.getText());
            for (int k=0;k<listaregiones.size();k++){
-            if (regioncod.equals(listaregiones.get(k).getCodigoR())==true){      
-                listaregiones.get(k).setPrecioEsp(especial);
-                listaregiones.get(k).setPrecioEst(estandar);
-                for(int i = 0; i< AppState.listaregiones.size(); i++){ 
-                    System.out.println(AppState.listaregiones.get(i).getCodigoR()+"-"+AppState.listaregiones.get(i).getPrecioEst()+"-"+AppState.listaregiones.get(i).getPrecioEsp());   
+                if (regioncod.equals(listaregiones.get(k).getCodigoR())==true){      
+                    listaregiones.get(k).setPrecioEsp(especial);
+                    listaregiones.get(k).setPrecioEst(estandar);
+                    for(int i = 0; i< AppState.listaregiones.size(); i++){ 
+                        System.out.println(AppState.listaregiones.get(i).getCodigoR()+"-"+AppState.listaregiones.get(i).getPrecioEst()+"-"+AppState.listaregiones.get(i).getPrecioEsp());   
+                    }
+                    JOptionPane.showMessageDialog(null, "Precios Actualizados Correctamente", "Manejo de Regiones y Precios", JOptionPane.INFORMATION_MESSAGE);
+
+                    break;
                 }
-                JOptionPane.showMessageDialog(null, "Precios Actualizados Correctamente", "Manejo de Regiones y Precios", JOptionPane.INFORMATION_MESSAGE);
-              
-                break;
-            }
             } 
         }
         

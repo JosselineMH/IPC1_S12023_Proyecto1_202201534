@@ -12,6 +12,7 @@ public class Regiones {
     private String codigoreg;
     private double precioest;
     private double precioesp;
+    private long contadorregion=0;
     
     public String getCodigoR() {
         return codigoreg;
@@ -36,5 +37,15 @@ public class Regiones {
     public void setPrecioEsp(double precioesp) {                                                                                   
         this.precioesp = precioesp;
     }
+    
+    public long getContadorRegion() {
+        return contadorregion;
+    }
+
+    public void setContadorRegion(long contadorregion) {                                                                                   
+        this.contadorregion = contadorregion;
+    }
+    
+  
     
 }

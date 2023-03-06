@@ -15,5 +15,7 @@ public class AppState {
     static ArrayList<Kioskos> listakioskos = new ArrayList<Kioskos>();
     static ArrayList<Regiones> listaregiones = new ArrayList<Regiones>();
     static ArrayList<Sucursales> listasucursales = new ArrayList<Sucursales>();
-   
+    static ArrayList<Tarjeta> listatarjetas = new ArrayList<Tarjeta>();
+    static ArrayList<Facturacion> listafacturacion = new ArrayList<Facturacion>();
+   static ArrayList<DatosEnvios> listaenvios = new ArrayList<DatosEnvios>();
 }

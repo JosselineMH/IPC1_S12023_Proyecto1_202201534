@@ -20,6 +20,8 @@ public class LoginFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         setTitle("LOGIN");
+        
+        
     }
 
     /**
@@ -139,30 +141,38 @@ public class LoginFrame extends javax.swing.JFrame {
         if(correoTxtf.getText().isEmpty()|| contraTxtpf.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Ingrese sus credenciales", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
         }else  if(us.equals("josseline") && pass.equals("1234")){      
+                
                 MenuAdminFrame menua = new MenuAdminFrame();
                 menua.setVisible(true);
                 dispose();
+            
                 JOptionPane.showMessageDialog(null, "Bievenido Administrador", "ADMINISTRADOR", JOptionPane.INFORMATION_MESSAGE);
         }else if(!us.equals("josseline") && !pass.equals("1234")){
             boolean validar=false;
             for (int k=0;k<AppState.listausuarios.size();k++){
-                 if (correoTxtf.getText().equals(AppState.listausuarios.get(k).getCorreo())==true){      
+                 if (correoTxtf.getText().equals(AppState.listausuarios.get(k).getCorreo())==true || contraTxtpf.getText().equals(AppState.listausuarios.get(k).getContraseña())==true){      
                     validar=true;
                     break;
                 } 
             }  
-             if (validar){
+            if (validar){
+                boolean validar2=false;
                 for (int k=0;k<AppState.listausuarios.size();k++){
-                 if (correoTxtf.getText().equals(AppState.listausuarios.get(k).getCorreo())==true && contraTxtpf.getText().equals(AppState.listausuarios.get(k).getContraseña())==true){      
-                    MenuUsuario menuus = new MenuUsuario();
+                     if (correoTxtf.getText().equals(AppState.listausuarios.get(k).getCorreo())==true && contraTxtpf.getText().equals(AppState.listausuarios.get(k).getContraseña())==true){      
+                        validar2=true;
+                        break;
+                    } 
+                }  
+                if (validar2) {
+                       MenuUsuario menuus = new MenuUsuario();
                     menuus.setVisible(true);
+                    String datocorreo = correoTxtf.getText();
+                    menuus.recibecorreoTxt.setText(datocorreo);
                     dispose();
                     JOptionPane.showMessageDialog(null, "Bievenido Cliente", "CLIENTE", JOptionPane.INFORMATION_MESSAGE);
-                    break;
-                 }else{
-                     JOptionPane.showMessageDialog(null, "Credenciales Incorrectas", "Datos no Coinciden", JOptionPane.WARNING_MESSAGE);
-                   }
-                }  
+                 }else  {
+                    JOptionPane.showMessageDialog(null, "Credenciales Incorrectas", "Datos no Coinciden", JOptionPane.WARNING_MESSAGE);
+                }
             }else{
                 JOptionPane.showMessageDialog(null, "El usuario NO EXISTE", "Credenciales Inexistentes", JOptionPane.WARNING_MESSAGE);
                  

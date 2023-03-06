@@ -60,7 +60,7 @@ public class PROYECTO1 {
        AppState.listaregiones.add(addreg6);
        
         for(int i = 0; i< AppState.listaregiones.size(); i++){ 
-                    System.out.println(AppState.listaregiones.get(i).getCodigoR()+"-"+AppState.listaregiones.get(i).getPrecioEst()+"-"+AppState.listaregiones.get(i).getPrecioEsp());   
+                    System.out.println(AppState.listaregiones.get(i).getCodigoR()+"-"+AppState.listaregiones.get(i).getPrecioEst()+"-"+AppState.listaregiones.get(i).getPrecioEsp()+"-"+AppState.listaregiones.get(i).getContadorRegion());   
         }
     }
 }

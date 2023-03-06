@@ -4,12 +4,17 @@
  */
 package com.mycompany.proyecto1;
 
+import java.util.Collections;
+import static com.mycompany.proyecto1.AppState.listaregiones;
+import java.util.*;
 /**
  *
  * @author josse
  */
-public class Reportes extends javax.swing.JFrame {
+public class Reportes extends javax.swing.JFrame  {
 
+    
+    
     /**
      * Creates new form Reportes
      */
@@ -19,6 +24,38 @@ public class Reportes extends javax.swing.JFrame {
         setResizable(false);
         setTitle("REPORTES");
         
+        algoritmoburbuja(AppState.listaregiones);
+        for(int i = 0; i <AppState.listaregiones.size(); i++) {
+            System.out.println("Región: "+AppState.listaregiones.get(i).getCodigoR()+" --- Paquetes Enviados: "+AppState.listaregiones.get(i).getContadorRegion()); 
+        }
+        
+    }
+    public static void algoritmoburbuja(ArrayList<Regiones> listaregiones){
+        for(int i=0;i<AppState.listaregiones.size();i++){
+            Regiones temp;
+            for(int j=i+1;j<AppState.listaregiones.size();j++){
+                if(AppState.listaregiones.get(i).getContadorRegion()<AppState.listaregiones.get(j).getContadorRegion()){
+                    temp=AppState.listaregiones.get(j);
+                    AppState.listaregiones.set(j,AppState.listaregiones.get(i));
+                    AppState.listaregiones.set(i,temp);
+                }
+            }
+    }
+        
+        
+    }
+    
+    public static void ordenarclientes(ArrayList<DatosEnvios> listaenvios){
+        for(int i=0;i<AppState.listaenvios.size();i++){
+            DatosEnvios temp2;
+            for(int j=i+1;j<AppState.listaenvios.size();j++){
+                if(AppState.listaenvios.get(i).getContador()<AppState.listaenvios.get(j).getContador()){
+                    temp2=AppState.listaenvios.get(j);
+                    AppState.listaenvios.set(j,AppState.listaenvios.get(i));
+                    AppState.listaenvios.set(i,temp2);
+                }
+            }
+        }             
     }
 
     /**
@@ -33,15 +70,15 @@ public class Reportes extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        regionesCombo = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        totalpaquetesTxt = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        ingresosTxt = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        clientesCombo = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        tipoReporte = new javax.swing.JComboBox<>();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -62,19 +99,28 @@ public class Reportes extends javax.swing.JFrame {
 
         jLabel3.setText("Total de Paquetes Enviados");
 
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        totalpaquetesTxt.setEditable(false);
+        totalpaquetesTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
         jLabel4.setText("Ingresos Totales en Q.");
+
+        ingresosTxt.setEditable(false);
+        ingresosTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
         jLabel5.setText("Usuarios con mayor No. de Paquetes enviados");
 
         jLabel6.setText("Reporte a Generar");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Regiones con más Envíos", "Total de Paquetes Enviados", "Ingresos Totales en Q.", "Usuarios con mayor No. de Paquetes enviados", " " }));
+        tipoReporte.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Regiones con más Envíos", "Total de Paquetes Enviados", "Ingresos Totales en Q.", "Usuarios con mayor No. de Paquetes enviados", " " }));
 
         jButton2.setBackground(new java.awt.Color(102, 204, 255));
         jButton2.setText("VISUALIZAR REPORTE");
         jButton2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 204, 255)));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -83,32 +129,26 @@ public class Reportes extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(364, 364, 364))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel2)
-                                .addComponent(jTextField1)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addGap(129, 129, 129))
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel5)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1)
-                                .addComponent(jLabel6)
-                                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(55, 55, 55))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel1)
+                        .addComponent(jLabel6)
+                        .addComponent(tipoReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(ingresosTxt)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jLabel4)
+                            .addGap(129, 129, 129))
+                        .addComponent(jLabel5))
+                    .addComponent(regionesCombo, 0, 355, Short.MAX_VALUE)
+                    .addComponent(totalpaquetesTxt)
+                    .addComponent(clientesCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(49, 49, 49))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,30 +156,32 @@ public class Reportes extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel6)
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(53, 53, 53)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(17, 17, 17)
+                        .addComponent(tipoReporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(regionesCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(totalpaquetesTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(ingresosTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(clientesCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -151,6 +193,41 @@ public class Reportes extends javax.swing.JFrame {
         menua.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        if (tipoReporte.getSelectedItem().equals("Regiones con más Envíos")){ 
+            regionesCombo.removeAllItems();
+            for(int i = 0; i < listaregiones.size(); i++) {
+            regionesCombo.addItem(listaregiones.get(i).getCodigoR().toString()+ " -- Envíos: "+ String.valueOf(listaregiones.get(i).getContadorRegion()));   
+            }
+        }else if (tipoReporte.getSelectedItem().equals("Ingresos Totales en Q.")){ 
+            double ingresos = 0;
+
+            for(DatosEnvios r : AppState.listaenvios) {
+             ingresos += r.getTotalPago();
+            }
+            
+            ingresosTxt.setText(String.valueOf(ingresos));
+        }else if (tipoReporte.getSelectedItem().equals("Total de Paquetes Enviados")){ 
+            long paquetes = 0;
+
+            for(DatosEnvios p : AppState.listaenvios) {
+             paquetes += p.getNumPaquetes();
+            }
+            
+            totalpaquetesTxt.setText(String.valueOf(paquetes));
+        }else if (tipoReporte.getSelectedItem().equals("Usuarios con mayor No. de Paquetes enviados")){ 
+            clientesCombo.removeAllItems();
+            for(int i = 0; i < AppState.listaenvios.size(); i++) {
+            clientesCombo.addItem("Cliente: "+AppState.listaenvios.get(i).getCorreoCliente().toString()+ " -- Paquetes Enviados: "+ String.valueOf(AppState.listaenvios.get(i).getContador()));   
+            }
+        }
+        
+
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+   
 
     /**
      * @param args the command line arguments
@@ -188,18 +265,18 @@ public class Reportes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> clientesCombo;
+    private javax.swing.JTextField ingresosTxt;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JComboBox<String> regionesCombo;
+    private javax.swing.JComboBox<String> tipoReporte;
+    private javax.swing.JTextField totalpaquetesTxt;
     // End of variables declaration//GEN-END:variables
 }

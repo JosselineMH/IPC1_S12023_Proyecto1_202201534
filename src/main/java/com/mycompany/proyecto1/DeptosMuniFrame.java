@@ -382,13 +382,7 @@ public class DeptosMuniFrame extends javax.swing.JFrame {
        
       
     }//GEN-LAST:event_deptosComboItemStateChanged
-    public String getGuatemala(String depto){ 
-        String codigomuni=null;
-        if(depto.equalsIgnoreCase("Guatemala")){
-            codigomuni="GT";
-        }
-        return codigomuni;
-    }
+
     /*    */
     public String[] getMetropolitana(String region1){ 
         String[] listadepartamentos1 = new String[4];
