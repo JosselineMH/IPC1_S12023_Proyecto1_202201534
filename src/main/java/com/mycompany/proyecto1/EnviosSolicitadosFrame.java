@@ -33,6 +33,7 @@ public class EnviosSolicitadosFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         setTitle("Historial de Envíos");
+        recibecorreo4.setVisible(false);
         
         
          datocorreo = recibecorreoTxt.getText();
@@ -286,7 +287,8 @@ public class EnviosSolicitadosFrame extends javax.swing.JFrame {
                     fileWriter.write(tablaHtml);
                     fileWriter.close();
                     JOptionPane.showMessageDialog(null, "FACTURA DESCARGADA CORRECTAMENTE", "Factura Electrónica", JOptionPane.INFORMATION_MESSAGE);
-                } catch (IOException e) {
+                    codigpTxt.setText(null);
+                 } catch (IOException e) {
                     e.printStackTrace();
                 }      
             }else  {
@@ -338,6 +340,7 @@ public class EnviosSolicitadosFrame extends javax.swing.JFrame {
                     fileWriter.write(tablaHtml);
                     fileWriter.close();
                      JOptionPane.showMessageDialog(null, "GUÍA DESCARGADA CORRECTAMENTE", "Guía Electrónica", JOptionPane.INFORMATION_MESSAGE);
+                     codigpTxt.setText(null);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }   
