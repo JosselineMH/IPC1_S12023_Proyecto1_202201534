@@ -111,7 +111,7 @@ public class Reportes extends javax.swing.JFrame  {
 
         jLabel6.setText("Reporte a Generar");
 
-        tipoReporte.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Regiones con más Envíos", "Total de Paquetes Enviados", "Ingresos Totales en Q.", "Usuarios con mayor No. de Paquetes enviados", " " }));
+        tipoReporte.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Regiones con más Envíos", "Total de Paquetes Enviados", "Ingresos Totales en Q.", "Usuarios con mayor No. de Paquetes enviados", " " }));
 
         jButton2.setBackground(new java.awt.Color(102, 204, 255));
         jButton2.setText("VISUALIZAR REPORTE");

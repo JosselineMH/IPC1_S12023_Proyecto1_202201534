@@ -27,6 +27,10 @@ public class KioskosFrame extends javax.swing.JFrame {
         aleatorio=(int)(codigoRdm.nextDouble()*100);
         String codigo="AQRT-"+aleatorio;
         codekioskoTxt.setText(codigo);
+        
+        for(int i = 0; i < AppState.listaregiones.size(); i++) {
+        regionTxt.addItem(AppState.listaregiones.get(i).getCodigoR().toString());   
+        }
       
     }
 
@@ -52,7 +56,7 @@ public class KioskosFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel1.setText("Manejo de Kioskos");
+        jLabel1.setText("Manejo de Kioscos");
 
         jButton1.setBackground(new java.awt.Color(102, 204, 255));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -70,11 +74,9 @@ public class KioskosFrame extends javax.swing.JFrame {
         codekioskoTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         codekioskoTxt.setForeground(new java.awt.Color(0, 0, 0));
 
-        jLabel3.setText("Nombre del Kiosko");
+        jLabel3.setText("Nombre del Kiosco");
 
         jLabel4.setText("Código de la Región");
-
-        regionTxt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M", "NT", "NO", "SO", "SOC", "NOC" }));
 
         jButton2.setBackground(new java.awt.Color(102, 204, 255));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -93,12 +95,6 @@ public class KioskosFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(306, 306, 306))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(136, 136, 136))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,7 +107,12 @@ public class KioskosFrame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(nombrekioskoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addGap(136, 136, 136)))
                 .addGap(39, 39, 39))
         );
         layout.setVerticalGroup(

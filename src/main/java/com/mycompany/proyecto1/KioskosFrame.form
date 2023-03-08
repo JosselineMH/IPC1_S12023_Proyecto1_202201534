@@ -94,7 +94,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="36" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Manejo de Kioskos"/>
+        <Property name="text" type="java.lang.String" value="Manejo de Kioscos"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
@@ -136,7 +136,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nombre del Kiosko"/>
+        <Property name="text" type="java.lang.String" value="Nombre del Kiosco"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="nombrekioskoTxt">
@@ -149,14 +149,7 @@
     <Component class="javax.swing.JComboBox" name="regionTxt">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="6">
-            <StringItem index="0" value="M"/>
-            <StringItem index="1" value="NT"/>
-            <StringItem index="2" value="NO"/>
-            <StringItem index="3" value="SO"/>
-            <StringItem index="4" value="SOC"/>
-            <StringItem index="5" value="NOC"/>
-          </StringArray>
+          <StringArray count="0"/>
         </Property>
       </Properties>
       <AuxValues>

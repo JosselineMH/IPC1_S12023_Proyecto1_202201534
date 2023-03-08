@@ -140,14 +140,14 @@ public class LoginFrame extends javax.swing.JFrame {
        
         if(correoTxtf.getText().isEmpty()|| contraTxtpf.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Ingrese sus credenciales", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
-        }else  if(us.equals("josseline") && pass.equals("1234")){      
+        }else  if(us.equals("ipc1_202201534@ipc1delivery.com") && pass.equals("202201534")){      
                 
                 MenuAdminFrame menua = new MenuAdminFrame();
                 menua.setVisible(true);
                 dispose();
             
                 JOptionPane.showMessageDialog(null, "Bievenido Administrador", "ADMINISTRADOR", JOptionPane.INFORMATION_MESSAGE);
-        }else if(!us.equals("josseline") && !pass.equals("1234")){
+        }else if(!us.equals("ipc1_202201534@ipc1delivery.com") && !pass.equals("202201534")){
             boolean validar=false;
             for (int k=0;k<AppState.listausuarios.size();k++){
                  if (correoTxtf.getText().equals(AppState.listausuarios.get(k).getCorreo())==true || contraTxtpf.getText().equals(AppState.listausuarios.get(k).getContraseña())==true){      

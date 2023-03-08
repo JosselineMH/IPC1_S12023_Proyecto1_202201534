@@ -21,7 +21,7 @@ public class TajetaFrame extends javax.swing.JFrame {
         setResizable(false);
         setTitle("REGISTRO DE TARJETAS");
         
-        recibecorreo1Txt.setVisible(false);
+       recibecorreo1Txt.setVisible(false);
         
     }
 
@@ -46,11 +46,23 @@ public class TajetaFrame extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         recibecorreo1Txt = new javax.swing.JTextField();
+        modificarBtn = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        numActual = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        numNuevo = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        nombreNuevo = new javax.swing.JTextField();
+        eliminarBtn = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setText("Registro de Tarjeta de Crédito/Débito");
+        jLabel1.setText("Registro de Tarjeta de \nCrédito/Débito");
 
         jLabel2.setText("Nombre de Tarjeta");
 
@@ -58,7 +70,6 @@ public class TajetaFrame extends javax.swing.JFrame {
 
         jLabel4.setText("Fecha de Vencimiento");
 
-        fechaTxt.setText("MM/AA");
         fechaTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fechaTxtActionPerformed(evt);
@@ -87,65 +98,156 @@ public class TajetaFrame extends javax.swing.JFrame {
             }
         });
 
+        modificarBtn.setBackground(new java.awt.Color(102, 204, 255));
+        modificarBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        modificarBtn.setText("MODIFICAR TARJETA");
+        modificarBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 204, 255)));
+        modificarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modificarBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel6.setText("Modificar y Eliminar");
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel7.setText("Datos de la Tarjeta");
+
+        jLabel8.setText("Número Actual de la Tarjeta");
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel9.setText("Datos a Modificar");
+
+        jLabel10.setText("Número Nuevo de Tarjeta");
+
+        jLabel11.setText("Nombre de la Tarjeta");
+
+        eliminarBtn.setBackground(new java.awt.Color(102, 204, 255));
+        eliminarBtn.setText("REMOVER TARJETA DEL SISTEMA");
+        eliminarBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 204, 255)));
+        eliminarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 2, 10)); // NOI18N
+        jLabel12.setText("necesario para modificar y eliminar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(recibecorreo1Txt, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel3)
-                            .addComponent(numeroTxt)
-                            .addComponent(nombreTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
-                            .addComponent(jLabel2)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(recibecorreo1Txt))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel4)
-                                .addComponent(fechaTxt, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(cvvTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel5))
-                        .addGap(57, 57, 57))))
+                            .addComponent(jLabel1)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel3)
+                                    .addComponent(numeroTxt)
+                                    .addComponent(nombreTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2))
+                                .addGap(29, 29, 29)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel4)
+                                        .addComponent(fechaTxt, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(cvvTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel5)))))
+                        .addGap(74, 74, 74)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(numActual, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(0, 11, Short.MAX_VALUE)))
+                                .addGap(58, 58, 58))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel8)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(nombreNuevo, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(eliminarBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
+                                        .addComponent(modificarBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(numNuevo, javax.swing.GroupLayout.Alignment.LEADING)))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLabel1)
-                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(nombreTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(numeroTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel7))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(34, 34, 34)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(fechaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cvvTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(fechaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel5))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(nombreTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(19, 19, 19)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(numeroTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cvvTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(recibecorreo1Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 100, Short.MAX_VALUE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(recibecorreo1Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(13, 13, 13))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(numActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel12)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nombreNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(numNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(modificarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(eliminarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -203,6 +305,79 @@ public class TajetaFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void modificarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarBtnActionPerformed
+        // TODO add your handling code here:
+        if(recibecorreo1Txt.getText().isEmpty() || numActual.getText().isEmpty() || nombreNuevo.getText().isEmpty() || numNuevo.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Debe llenar todos los campos", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
+        }else{
+            String nombrenuevo = nombreNuevo.getText();
+            String numeronuevo = numNuevo.getText();
+            String correo = recibecorreo1Txt.getText();
+            long numeroActual = Long.parseLong(numActual.getText());
+            boolean validar = false;
+            for (int k=0;k<AppState.listatarjetas.size();k++){
+                if (correo.equals(AppState.listatarjetas.get(k).getPropietarioT())==true && numeroActual==(AppState.listatarjetas.get(k).getNumeroT())){      
+                   validar = true;
+                   System.out.println(AppState.listatarjetas.get(k).getNumeroT());
+                   break;
+                }else {
+                    validar = false;
+                }     
+           }
+            if (validar) {
+                for (int k=0;k<AppState.listatarjetas.size();k++){
+                        if (correo.equals(AppState.listatarjetas.get(k).getPropietarioT())==true && numeroActual==(AppState.listatarjetas.get(k).getNumeroT())){      
+                            AppState.listatarjetas.get(k).setNombreT(nombrenuevo);
+                            AppState.listatarjetas.get(k).setNumeroT(Long.parseLong(numeronuevo));
+                            for(int i = 0; i< AppState.listatarjetas.size(); i++){ 
+                                System.out.println(AppState.listatarjetas.get(i).getPropietarioT()+"-"+AppState.listatarjetas.get(i).getNombreT()+"-"+AppState.listatarjetas.get(i).getNumeroT()+"-"+AppState.listatarjetas.get(i).getFechaT());   
+                            }
+                        }
+                    }
+                     JOptionPane.showMessageDialog(null, "Tarjeta actualizada correctamente", "Administrar Tarjetas", JOptionPane.INFORMATION_MESSAGE); 
+                     nombreNuevo.setText(null); numNuevo.setText(null); numActual.setText(null);
+            }else {  
+               JOptionPane.showMessageDialog(null, "Los datos no coinciden", "Administrar Tarjetas", JOptionPane.ERROR_MESSAGE); 
+            }
+        }
+    }//GEN-LAST:event_modificarBtnActionPerformed
+
+    private void eliminarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarBtnActionPerformed
+        // TODO add your handling code here:
+        if(recibecorreo1Txt.getText().isEmpty() || numActual.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Debe llenar todos los campos", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
+        }else{
+            String nombrenuevo = nombreNuevo.getText();
+            String numeronuevo = numNuevo.getText();
+            String correo = recibecorreo1Txt.getText();
+            long numeroActual = Long.parseLong(numActual.getText());
+            boolean validar = false;
+            for (int k=0;k<AppState.listatarjetas.size();k++){
+                if (correo.equals(AppState.listatarjetas.get(k).getPropietarioT())==true && numeroActual==(AppState.listatarjetas.get(k).getNumeroT())){      
+                   validar = true;
+                   System.out.println(AppState.listatarjetas.get(k).getNumeroT());
+                   break;
+                }else {
+                    validar = false;
+                }     
+           }
+            if (validar) {
+                for (int k=0;k<AppState.listatarjetas.size();k++){
+                        if (correo.equals(AppState.listatarjetas.get(k).getPropietarioT())==true && numeroActual==(AppState.listatarjetas.get(k).getNumeroT())){      
+                            AppState.listatarjetas.remove(k);
+                            for(int i = 0; i< AppState.listatarjetas.size(); i++){ 
+                                System.out.println(AppState.listatarjetas.get(i).getPropietarioT()+"-"+AppState.listatarjetas.get(i).getNombreT()+"-"+AppState.listatarjetas.get(i).getNumeroT()+"-"+AppState.listatarjetas.get(i).getFechaT());   
+                            }
+                        }
+                    }
+                     JOptionPane.showMessageDialog(null, "Tarjeta se ha remmovido correctamente", "Administrar Tarjetas", JOptionPane.INFORMATION_MESSAGE); 
+                     nombreNuevo.setText(null); numNuevo.setText(null); numActual.setText(null);
+            }else {  
+               JOptionPane.showMessageDialog(null, "Los datos no coinciden", "Administrar Tarjetas", JOptionPane.ERROR_MESSAGE); 
+            }
+        }
+    }//GEN-LAST:event_eliminarBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -240,15 +415,27 @@ public class TajetaFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField cvvTxt;
+    private javax.swing.JButton eliminarBtn;
     private javax.swing.JTextField fechaTxt;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JButton modificarBtn;
+    private javax.swing.JTextField nombreNuevo;
     private javax.swing.JTextField nombreTxt;
+    private javax.swing.JTextField numActual;
+    private javax.swing.JTextField numNuevo;
     private javax.swing.JTextField numeroTxt;
     public static javax.swing.JTextField recibecorreo1Txt;
     // End of variables declaration//GEN-END:variables
